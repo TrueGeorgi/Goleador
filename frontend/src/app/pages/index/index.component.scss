@@ -1,0 +1,49 @@
+.background {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: url('https://img.fcbayern.com/image/upload/cms/public/images/allianz-arena/wallpaper/wallpaper-01.jpg') no-repeat center center/cover;
+}
+
+.buttons-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(127deg, #539e9b, #28380c);
+    border: 2px solid #1f2c08;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    background: linear-gradient(127deg, #5fb6b2, #364e12);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(83, 158, 155, 0.5);
+}
+
+.button:active {
+    background: linear-gradient(127deg, #3c7f7c, #1d2a07);
+    transform: scale(0.98);
+    box-shadow: 0px 2px 5px rgba(40, 56, 12, 0.7);
+}
