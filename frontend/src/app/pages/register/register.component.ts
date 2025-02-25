@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 export class RegisterComponent {
   username: string = '';
   password: string = '';
-  teamName: string = '';
+  repeatPassword: string = '';
   
   
   onRegister() {

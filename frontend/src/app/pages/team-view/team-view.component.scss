@@ -1,0 +1,51 @@
+.team-view-main {
+    height: 100vh;
+    background: url('https://www.allcolorpowdercoating.com/wp-content/uploads/2015/12/UW-Football-Locker-Room.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-view-container {
+    display: grid;
+    grid-template-columns: 800px 400px;
+    grid-auto-rows: minmax(150px, 200px);
+    row-gap: 25px;
+    column-gap: 100px;
+    padding: 13px 15px;
+}
+
+.team-view-container div {
+    background-color: rgb(176, 221, 176);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.players-container {
+    grid-row: span 3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background-color: darkgreen;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #fdfffe;
+}
