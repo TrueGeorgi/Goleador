@@ -1,0 +1,158 @@
+.manager-main-container {
+    height: 100vh;
+    background: url('https://amazinteriors.com/wp-content/uploads/2015/09/project-11.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.manager-grid-container {
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+    grid-auto-rows: minmax(300px, 300px);
+    row-gap: 100px;
+    column-gap: 100px;
+    padding: 13px 15px;
+}
+
+.manager-grid-container div:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.grid-box {
+    background-color: rgb(176, 221, 176);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.edit-btn {
+    margin-top: 8px;
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(120deg, #d17159, #bd1919);
+    color: white;
+}
+
+// manager + club profiles
+
+.details-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
+}
+
+.photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid darkgreen;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+.info {
+    font-size: 18px;
+}
+
+.details {
+    font-size: 20px;
+    color: #333;
+    margin: 5px 0;
+}
+
+.details span {
+    font-weight: bold;
+    color: darkgreen;
+}
+
+// finances
+
+.finances-view {
+    padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.amount {
+    font-size: 34px;
+    color: darkgreen;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.finances-btns-box {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.finances-view button {
+    background: linear-gradient(120deg, #d17159, #bd1919);
+    color: white;
+    width: 150px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.finances-view button:hover {
+    background: rgb(236, 204, 19);
+    color: black;
+    transform: scale(1.1);
+}
+
+// action buttons
+
+.action-btns-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.action-btns-box button {
+    width: 80%;
+    text-align: center;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    background: linear-gradient(120deg, #1976D2, #0D47A1);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.action-btns-box button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.action-btns-box buttonactive {
+    transform: scale(0.95);
+}
+
