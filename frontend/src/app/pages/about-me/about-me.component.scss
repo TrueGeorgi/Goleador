@@ -1,0 +1,84 @@
+.about-me-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    line-height: 1.6;
+}
+
+.name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #3f51b5;
+    margin-bottom: 10px;
+}
+
+.email {
+    font-size: 1rem;
+    color: #757575;
+    margin-bottom: 20px;
+}
+
+.bio {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.social-links {
+    text-align: center;
+    margin-top: 20px;
+
+    h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: #3f51b5;
+    }
+
+    .social-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        margin: 0 10px;
+        color: #3f51b5;
+        text-decoration: none;
+
+        mat-icon {
+            font-size: 1.2rem;
+            margin-right: 5px;
+        }
+
+        &:hover {
+            color: #303f9f;
+            text-decoration: underline;
+        }
+    }
+}
