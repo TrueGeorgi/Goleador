@@ -1,0 +1,91 @@
+.player-main-container {
+    height: 100vh;
+    background: url('https://www.pixcrafter.com/wp-content/uploads/2023/08/abstract-hexagonal-blue-background.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Player Profile Card */
+.player-container {
+    width: 25%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Align everything to the left */
+    text-align: left;
+}
+
+/* Title */
+.player-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: darkgreen;
+    border-bottom: 2px solid darkgreen;
+    padding-bottom: 8px;
+    width: 100%;
+}
+
+/* Grid Layout */
+.player-grid {
+    display: grid;
+    grid-template-columns: 150px auto;
+    gap: 12px 20px;
+    width: 100%;
+    font-size: 18px;
+}
+
+/* Labels */
+.label {
+    font-weight: 600;
+    color: #333;
+    text-align: left;
+    padding-right: 10px;
+}
+
+/* Player Stats */
+.player-grid div {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 17px;
+}
+
+/* Remove border for the last row */
+.player-grid div:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+
+// buttons
+
+.btn-box {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    width: 80%;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    background: linear-gradient(120deg, #86ee86, #168f34);
+    color: black;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: scale(0.95);
+}
