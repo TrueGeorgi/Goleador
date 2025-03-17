@@ -1,38 +1,38 @@
 package goleador.backend.domain.user.service;
 
 
+import goleador.backend.config.JwtService;
 import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.club.service.ClubService;
 import goleador.backend.domain.user.model.User;
 import goleador.backend.domain.user.model.UserRole;
 import goleador.backend.domain.user.repository.UserRepository;
+import goleador.backend.web.dto.AuthenticationResponse;
 import goleador.backend.web.dto.LoginRequest;
 import goleador.backend.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final ClubService clubService;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserService(UserRepository userRepository, ClubService clubService, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.clubService = clubService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public User register(RegisterRequest registerRequest) {
+    public AuthenticationResponse register(RegisterRequest registerRequest) {
         Optional<User> optionalUser = userRepository.findByUsername(registerRequest.getUsername());
 
         if (optionalUser.isPresent()) {
@@ -44,7 +44,11 @@ public class UserService {
         Club club = clubService.createClub(user);
         user.setClub(club);
 
-        return user;
+        String jwtToken = jwtService.generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
     }
 
     private User initializeUser(RegisterRequest registerRequest) {
@@ -57,15 +61,28 @@ public class UserService {
     }
 
 
-    public User login(LoginRequest loginRequest) {
-        Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+//        Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
+//
+//        if (optionalUser.isEmpty()) {
+//            throw new RuntimeException("User with " + loginRequest.getUsername() + " not found");
+//        }
+//
+//        User user = optionalUser.get();
 
-        if (optionalUser.isEmpty()) {
-            throw new RuntimeException("User with " + loginRequest.getUsername() + " not found");
-        }
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
 
-        User user = optionalUser.get();
+        User user = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
 
-        return user;
+        String jwtToken = jwtService.generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
     }
 }
