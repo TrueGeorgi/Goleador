@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ClubService {
@@ -41,5 +43,9 @@ public class ClubService {
 
 
        return club;
+    }
+
+    public Club getClubById(UUID id) {
+        return clubRepository.findById(id).orElse(null); // TODO handle error
     }
 }
