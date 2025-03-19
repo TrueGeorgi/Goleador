@@ -197,6 +197,28 @@
     color: darkgreen;
 }
 
+.logout-btn {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(120deg, #bb2c08, #690505);
+    color: white;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(120deg, #501709, #300202);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.logout-btn:active {
+    background: linear-gradient(120deg, #912e16, #7e1212);
+    transform: scale(0.98);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 // eternal position
 
 .eternal-position {

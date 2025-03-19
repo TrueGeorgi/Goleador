@@ -21,4 +21,9 @@ export class AuthServiceService {
   register(userData: RegisterRequest): Observable<AuthenticationResponse> {
     return this.http.post<AuthenticationResponse>(`${this.apiUrl}/register`, userData);
   }
+
+  logout(): void {
+    localStorage.removeItem('authToken');
+  }
+  
 }

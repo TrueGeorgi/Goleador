@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthServiceService } from '../../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-club-page',
@@ -8,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class ClubPageComponent {
 
+  constructor(private authService: AuthServiceService, private router: Router) {}
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

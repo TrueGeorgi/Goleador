@@ -53,6 +53,13 @@ input:focus {
     background: rgba(255, 255, 255, 0.2);
 }
 
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
 .register-button {
     padding: 8px 15px;
     font-size: 19px;
@@ -73,6 +80,28 @@ input:focus {
 .register-button:active {
     background: linear-gradient(127deg, #4a9e3b, #8cc928);
     transform: scale(0.98);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.login-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    background: linear-gradient(127deg, #ffaf7a, #ff785a);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.login-button:hover {
+    background: linear-gradient(127deg, #ff9062, #ff5733);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:active {
+    background: linear-gradient(127deg, #e05530, #c44426);
+    transform: scale(0.97);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 }
 

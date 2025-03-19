@@ -16,8 +16,10 @@
             <label for="repeat-password">Repeat password</label>
             <input type="password" id="repeat-password" [(ngModel)]="repeatPassword" name="repeat-password" required>
           </div>
-      
-          <button type="submit" class="register-button">Register</button>
+          <div class="buttons-container">
+            <button type="submit" class="register-button">Register</button>
+            <button type="submit" class="login-button" (click)="navigateToLogin()">Login now</button>
+          </div>
         </form>
       </div>
 </div>
