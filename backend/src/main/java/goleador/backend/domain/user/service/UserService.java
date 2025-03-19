@@ -10,6 +10,7 @@ import goleador.backend.domain.user.repository.UserRepository;
 import goleador.backend.web.dto.AuthenticationResponse;
 import goleador.backend.web.dto.LoginRequest;
 import goleador.backend.web.dto.RegisterRequest;
+import goleador.backend.web.dto.UserData;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -81,8 +82,18 @@ public class UserService {
 
         String jwtToken = jwtService.generateToken(user);
 
+        UserData userdata = UserData.builder()
+                .username(user.getUsername())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .clubId(user.getClub().getId())
+                .profilePicture(user.getProfilePicture())
+                .build();
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userData(userdata)
                 .build();
     }
 }
