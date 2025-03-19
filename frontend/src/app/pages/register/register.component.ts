@@ -19,26 +19,36 @@ export class RegisterComponent {
   constructor(private authService: AuthServiceService, private router: Router ) {}
 
   onRegister() {
-
+      // TODO - improve validation
     if (this.username.length < 6) {
-      alert('Username must be at least 6 symbols long')
-    } else if (this.password.length < 6) {
-      alert('Password must be at least 6 symbols long')  // TODO - make the validators better
-    } else if (this.password !== this.repeatPassword) {
-      alert('Password and Repeat password does not match')
-    } else {
-      const userData: RegisterRequest = {username: this.username, password: this.password};
-
-      this.authService.register(userData).subscribe({
-        next: (response) => {
-          console.log(response);
-          this.router.navigate(["club-page"]);
-          
-        },
-        error: (err) => {
-          console.error('Something went terribly worng ', err)
-        }
-      })
+      alert('Username must be at least 6 symbols long');
+      return;
     }
+    
+    if (this.password.length < 6) {
+      alert('Password must be at least 6 symbols long');
+      return;
+    }
+  
+    if (this.password !== this.repeatPassword) {
+      alert('Password and Repeat password do not match');
+      return;
+    }
+  
+    const userData: RegisterRequest = { username: this.username, password: this.password };
+  
+    this.authService.register(userData).subscribe({
+      next: (response) => {
+        console.log('Registration successful:', response);
+        
+        localStorage.setItem('authToken', response.token);
+  
+        this.router.navigate(["club-page"]);
+      },
+      error: (err) => {
+        console.error('Something went terribly wrong ', err);
+      }
+    });
   }
+  
 }
