@@ -2,7 +2,7 @@ package goleador.backend.web.mapper;
 
 
 import goleador.backend.domain.club.model.Club;
-import goleador.backend.domain.club.model.Game;
+import goleador.backend.domain.game.model.Game;
 import goleador.backend.domain.player.model.Player;
 import goleador.backend.web.dto.ClubData;
 import org.springframework.stereotype.Component;

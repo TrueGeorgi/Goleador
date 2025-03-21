@@ -3,20 +3,20 @@ package goleador.backend.domain.player.service;
 import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.player.model.*;
 import goleador.backend.domain.player.repository.PlayerRepository;
+import goleador.backend.web.dto.PlayerData;
+import goleador.backend.web.mapper.PlayerMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
-
-    public PlayerService(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
+    private final PlayerMapper playerMapper;
 
     private final Random rand = new Random();
 
@@ -112,5 +112,14 @@ public class PlayerService {
     private Position pickRandomPosition() {
         int randomNum = rand.nextInt(Position.values().length);
         return Position.values()[randomNum];
+    }
+
+    public List<PlayerData> getTeamsPlayers(UUID teamId) {
+        Optional<List<Player>> players = this.playerRepository.findAllByClubId(teamId);
+        if (players.isEmpty()) {
+            throw new RuntimeException(); // TODO - do something else instead of error
+        }
+
+        return players.get().stream().map(playerMapper::toPlayerData).collect(Collectors.toList());
     }
 }

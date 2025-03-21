@@ -4,6 +4,7 @@ import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.club.repository.ClubRepository;
 import goleador.backend.domain.player.service.PlayerService;
 import goleador.backend.domain.user.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ClubService {
 
     private final ClubRepository clubRepository;
     private final PlayerService playerService;
-
-    @Autowired
-    public ClubService(ClubRepository clubRepository, PlayerService playerService) {
-        this.clubRepository = clubRepository;
-        this.playerService = playerService;
-    }
 
     public Club createClub(User user) {
 
