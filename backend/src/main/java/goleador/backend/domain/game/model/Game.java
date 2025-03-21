@@ -1,5 +1,6 @@
-package goleador.backend.domain.club.model;
+package goleador.backend.domain.game.model;
 
+import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.log.model.Log;
 import jakarta.persistence.*;
 import lombok.*;
