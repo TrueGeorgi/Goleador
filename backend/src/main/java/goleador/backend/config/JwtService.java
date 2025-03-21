@@ -19,6 +19,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final String SECRET_KEY = "Bfu91T7pRtROolg3oQwuoo/mwowSqZQCQF9/tm49pxY78wyfFTUANUScJpVQVXXw";
+    private final int tokenValidityInSeconds = 1000 * 60 * 24; // 1 day
 
     public String extractUsername(String token) {
 
@@ -42,11 +43,14 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        this.refreshTokenIfExpired(token, userDetails);
+        return (username.equals(userDetails.getUsername()));
     }
 
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    private void refreshTokenIfExpired(String token, UserDetails userDetails) {
+        if (extractExpiration(token).before(new Date())) {
+            this.generateToken(new HashMap<>(),userDetails);
+        }
     }
 
     private Date extractExpiration(String token) {
