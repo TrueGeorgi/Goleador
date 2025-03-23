@@ -21,7 +21,9 @@ public class GameController {
     @GetMapping("/last-game")
     public ResponseEntity<GameData> getLastGame(@RequestParam String teamId) {
         UUID teamUuid = UUID.fromString(teamId);
-        GameData lastGame = this.gameService.getLastGame(teamUuid);
-
+//        GameData lastGame = this.gameService.getLastGame(teamUuid);
+        return null; // TODO - return should not be null
     }
+
+    // TODO - get all games by user
 }

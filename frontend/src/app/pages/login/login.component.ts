@@ -7,6 +7,7 @@ import { ClubService } from '../../services/club.service';
 import { ClubData } from '../../dtos/ClubData';
 import { PlayerService } from '../../services/player.service';
 import { PlayerData } from '../../dtos/PlayerData';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ constructor(
   private authService: AuthServiceService,
   private clubService: ClubService, 
   private router: Router,
-  private playerService: PlayerService
+  private playerService: PlayerService,
+  private eventService: EventService
   ){}
 
 
@@ -52,10 +54,11 @@ constructor(
             this.playerService.setclubsPlayersData(response);
           },
           error: (err) => {
-            console.log('No players were hatched');
+            console.log('No players were hatched', err);
             
           }
         });
+        this.eventService.sendData(true);
       },
       error: (err) => {
         console.error('Login failed:', err);

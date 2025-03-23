@@ -3,6 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { RegisterRequest } from '../../dtos/RegisterRequest';
 import { Router } from '@angular/router';
+import { EventService } from '../../services/event.service';
+import { PlayerData } from '../../dtos/PlayerData';
+import { ClubService } from '../../services/club.service';
+import { PlayerService } from '../../services/player.service';
+import { ClubData } from '../../dtos/ClubData';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +21,13 @@ export class RegisterComponent {
   repeatPassword: string = '';
   
   
-  constructor(private authService: AuthServiceService, private router: Router ) {}
+  constructor(
+    private authService: AuthServiceService, 
+    private router: Router, 
+    private eventService: EventService,
+    private clubService: ClubService,
+    private playerService: PlayerService
+  ) {}
 
   onRegister() {
       // TODO - improve validation
@@ -38,10 +49,34 @@ export class RegisterComponent {
     const userData: RegisterRequest = { username: this.username, password: this.password };
   
     this.authService.register(userData).subscribe({
-      next: (response) => {
+      next: async (response) => {
         console.log('Registration successful:', response);
         
         localStorage.setItem('authToken', response.token);
+
+        await this.clubService.getClubData(response.userData.clubId).subscribe({
+          next: (response: ClubData) => {
+            console.log(response);
+            this.clubService.setClubData(response);
+            this.router.navigate(['/club-page']);
+          },
+          error: (err) => {
+            console.log('FUUUUUCK ERROR', err);
+          }
+        });
+
+        await this.playerService.getUserClubsPlayers(response.userData.clubId).subscribe({
+          next: (response: PlayerData[]) => {
+            console.log(response);
+            this.playerService.setclubsPlayersData(response);
+          },
+          error: (err) => {
+            console.log('No players were hatched', err);
+            
+          }
+        });
+        
+        this.eventService.sendData(true);
   
         this.router.navigate(["club-page"]);
       },

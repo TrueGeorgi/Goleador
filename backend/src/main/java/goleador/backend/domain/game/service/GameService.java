@@ -16,13 +16,13 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
 
-    public GameData getLastGame(UUID teamId) {
-        Optional<Game> game = this.gameRepository.findFirstByHomeTeamIdOrAwayTeamIdOrderByCreatedOnDesc(teamId, teamId);
-        int test = 1;
-        if (game.isEmpty()) {
-            throw new RuntimeException("There is no last game"); // TODO - an error here
-        }
-
-        return gameMapper.toGameData(game.get());
-    }
+//    public GameData getLastGame(UUID teamId) {
+//        Optional<Game> game = this.gameRepository.findFirstByHomeTeamIdOrAwayTeamIdOrderByCreatedOnDesc(teamId, teamId);
+//        int test = 1;
+//        if (game.isEmpty()) {
+//            throw new RuntimeException("There is no last game"); // TODO - an error here
+//        }
+//
+//        return gameMapper.toGameData(game.get());
+//    }
 }

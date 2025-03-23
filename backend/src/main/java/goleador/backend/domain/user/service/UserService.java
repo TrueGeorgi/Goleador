@@ -47,8 +47,19 @@ public class UserService {
 
         String jwtToken = jwtService.generateToken(user);
 
+        UserData userdata = UserData.builder()
+                .username(user.getUsername())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .clubId(user.getClub().getId())
+                .profilePicture(user.getProfilePicture())
+                .build();
+
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userData(userdata)
                 .build();
     }
 

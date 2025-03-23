@@ -12,8 +12,8 @@ import { UserData } from '../dtos/UserData';
 export class AuthServiceService {
 
   private apiUrl = 'http://localhost:8080/api/v1/auth';
-    private userDataSubject = new BehaviorSubject<UserData | null>(null);
-    userData$ = this.userDataSubject.asObservable();
+  private userDataSubject = new BehaviorSubject<UserData | null>(null);
+  userData$ = this.userDataSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +31,10 @@ export class AuthServiceService {
 
   setUserData(data: UserData) {
     this.userDataSubject.next(data);
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('authToken');
   }
   
 }

@@ -48,9 +48,6 @@ public class Club {
     @Column(nullable = false)
     private int points;
 
-//    @Column(nullable = false, name = "eternal_position") // TODO - fix the eternal Ranking
-//    private int eternalPosition;
-
     @Column(nullable = false)
     private BigDecimal finances;
 

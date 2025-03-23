@@ -13,21 +13,23 @@ import { RegisterComponent } from './pages/register/register.component';
 import { TeamViewComponent } from './pages/team-view/team-view.component';
 import { TrainingComponent } from './pages/training/training.component';
 import { TransferWindowComponent } from './pages/transfer-window/transfer-window.component';
+import { AuthGuard } from './guards/auth.guard';
+import { GuestGuard } from './guards/guest.guard';
 
 export const routes: Routes = [
     {path: '', component: IndexComponent},
-    {path: 'transfer-window', component: TransferWindowComponent},
-    {path: 'training', component: TrainingComponent},
-    {path: 'team-view', component: TeamViewComponent},
-    {path: 'register', component: RegisterComponent},
-    {path: 'player-profile', component: PlayerProfileComponent},
-    {path: 'past-results', component: PastResultsComponent},
-    {path: 'match-window', component: MatchWindowComponent},
-    {path: 'manager-profile', component: ManagerProfileComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'eternal-ranklist', component: EternalRanklistComponent},
-    {path: 'club-page', component: ClubPageComponent},
+    {path: 'transfer-window', component: TransferWindowComponent, canActivate: [AuthGuard]},
+    {path: 'training', component: TrainingComponent, canActivate: [AuthGuard]},
+    {path: 'team-view', component: TeamViewComponent, canActivate: [AuthGuard]},
+    {path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
+    {path: 'player-profile', component: PlayerProfileComponent, canActivate: [AuthGuard]},
+    {path: 'past-results', component: PastResultsComponent, canActivate: [AuthGuard]},
+    {path: 'match-window', component: MatchWindowComponent, canActivate: [AuthGuard]},
+    {path: 'manager-profile', component: ManagerProfileComponent, canActivate: [AuthGuard]},
+    {path: 'login', component: LoginComponent, canActivate: [GuestGuard]},
+    {path: 'eternal-ranklist', component: EternalRanklistComponent, canActivate: [AuthGuard]},
+    {path: 'club-page', component: ClubPageComponent, canActivate: [AuthGuard]},
     {path: 'about-the-game', component: AboutTheGameComponent},
     {path: 'about-me', component: AboutMeComponent},
-    {path: '**', component: IndexComponent},
+    {path: '**', component: AboutMeComponent},
 ];

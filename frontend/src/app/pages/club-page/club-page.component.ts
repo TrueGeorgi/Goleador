@@ -6,6 +6,7 @@ import { ClubService } from '../../services/club.service';
 import { PlayerService } from '../../services/player.service';
 import { PlayerData } from '../../dtos/PlayerData';
 import { UserData } from '../../dtos/UserData';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-club-page',
@@ -24,9 +25,14 @@ export class ClubPageComponent {
     private authService: AuthServiceService, 
     private router: Router,
     private clubService: ClubService,
-    private playerService: PlayerService) {}
+    private playerService: PlayerService,
+    private eventService: EventService
+  ) {}
 
     ngOnInit() {
+
+      // TODO - remove all the $ data and set api calls every time
+
       this.clubService.clubData$.subscribe((data) => {
         if (data) {
           this.clubData = data;
@@ -55,6 +61,7 @@ export class ClubPageComponent {
 
   logout() {
     this.authService.logout();
+    this.eventService.sendData(false)
     this.router.navigate(['/login']);
   }
 }

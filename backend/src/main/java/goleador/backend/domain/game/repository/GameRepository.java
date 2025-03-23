@@ -1,13 +1,15 @@
 package goleador.backend.domain.game.repository;
 
+import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.game.model.Game;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface GameRepository {
+public interface GameRepository extends JpaRepository<Game, UUID> {
 
-    Optional<Game> findFirstByHomeTeamIdOrAwayTeamIdOrderByCreatedOnDesc(UUID homeTeamId, UUID awayTeamId);
+//    Optional<Game> findFirstByHomeTeamIdOrAwayTeamIdOrderByCreatedOnDesc(UUID homeTeamId, UUID awayTeamId);
 }
