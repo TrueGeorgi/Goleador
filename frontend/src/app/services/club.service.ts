@@ -16,8 +16,8 @@ export class ClubService {
 
   constructor(private http: HttpClient) { }
 
-  getClubData(clubId: string): Observable<ClubData> {
-    return this.http.get<ClubData>(`${this.apiUrl}/${clubId}`)
+  getClubData(username: string): Observable<ClubData> {
+    return this.http.get<ClubData>(`${this.apiUrl}/${username}`)
   }
 
   setClubData(data: ClubData) {

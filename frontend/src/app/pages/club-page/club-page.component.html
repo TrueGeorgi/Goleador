@@ -10,30 +10,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Ronaldo</td>
-                            <td>15</td>
-                        </tr>
-                        <tr>
-                            <td>Messi</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td>Mbappe</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>Berbatov</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td>Musiala</td>
-                            <td>3</td>
+                        <tr *ngFor="let player of topFiveGoalscoreres">
+                            <td>{{ player.firstName | capitalize }} <span class="last-name">{{ player.lastName | capitalize }}</span></td>
+
+                            <td>{{player.goals}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <button class="view-squad-btn">View Squad</button>
+            <button class="view-squad-btn" (click)="navigateTo('team-view')">View Squad</button>
         </div>
         <div class="grid-box last-match-box">
             <div class="last-match-text">Last Result</div>
@@ -65,8 +50,8 @@
         <div class="grid-box dashboard">
             <div class="transfer-window-btn">Transfer window</div>
             <div class="training-btn">Training</div>
-            <div class="finances-view">100,000 EUR</div>
-            <div class="home-btn">Home page</div>
+            <div class="finances-view">{{clubData?.finances | currencyFormat}}</div>
+            <div class="home-btn" (click)="navigateTo('match-window')">Play a game</div>
         </div>
     </div>
 </div>

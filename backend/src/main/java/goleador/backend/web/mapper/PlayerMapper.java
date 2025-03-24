@@ -15,6 +15,8 @@ public class PlayerMapper {
                 .clubId(player.getClub().getId())
                 .position(player.getPosition())
                 .skill(player.getSkill())
+                .goals(player.getGoals())
+                .appearances(player.getAppearances())
                 .build();
     }
 }

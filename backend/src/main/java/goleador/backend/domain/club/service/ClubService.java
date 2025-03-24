@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -19,6 +20,7 @@ public class ClubService {
 
     private final ClubRepository clubRepository;
     private final PlayerService playerService;
+    private final Random random;
 
     public Club createClub(User user) {
 
@@ -43,5 +45,19 @@ public class ClubService {
 
     public Club getClubById(UUID id) {
         return clubRepository.findById(id).orElse(null); // TODO handle error
+    }
+
+    public Club getRandomClub(UUID homeClubId) {
+        List<Club> clubs = clubRepository.findAll();
+        if (clubs.size() <= 1) {
+            throw new RuntimeException("Not enough clubs"); // TODO - handle error
+        }
+
+        Club randomClub = clubs.get(random.nextInt(clubs.size()));
+
+        while (randomClub.getId() == homeClubId) {
+            randomClub = clubs.get(random.nextInt(clubs.size()));
+        }
+        return randomClub;
     }
 }

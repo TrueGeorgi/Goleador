@@ -20,4 +20,6 @@ public class PlayerData {
     private UUID clubId;
     private Position position;
     private int skill;
+    private int goals;
+    private int appearances;
 }

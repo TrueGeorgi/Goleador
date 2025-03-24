@@ -47,6 +47,8 @@ public class PlayerService {
                 .club(club)
                 .position(position)
                 .skill(rand.nextInt(15))
+                .goals(0)
+                .appearances(0)
                 .build();
     }
 
@@ -121,5 +123,37 @@ public class PlayerService {
         }
 
         return players.get().stream().map(playerMapper::toPlayerData).collect(Collectors.toList());
+    }
+
+    public int calculatePower(UUID homeClubId, Position position) {
+        switch (position) {
+            case GK -> {
+                Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.GK);
+                return positionStrength(allByPosition);
+            }
+            case DEF -> {
+                Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.DEF);
+                return positionStrength(allByPosition);
+            }
+            case MID -> {
+                Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.MID);
+                return positionStrength(allByPosition);
+            }
+            case ATT -> {
+                Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.ATT);
+                return positionStrength(allByPosition);
+            }
+            default -> throw new IllegalArgumentException("Invalid position");
+        }
+    }
+
+    private static int positionStrength(Optional<List<Player>> allByPosition) {
+        if (allByPosition.isEmpty()) {
+            throw new RuntimeException();
+        }
+
+        List<Player> players = allByPosition.get();
+
+        return players.stream().mapToInt(Player::getSkill).sum();
     }
 }

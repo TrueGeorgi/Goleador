@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -106,5 +107,9 @@ public class UserService {
                 .token(jwtToken)
                 .userData(userdata)
                 .build();
+    }
+
+    public User getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
     }
 }

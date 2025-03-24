@@ -5,4 +5,6 @@ export interface PlayerData {
     clubId: string;
     position: string;
     skill: number;
+    goals: number;
+    appearances: number;
 }

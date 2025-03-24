@@ -25,5 +25,4 @@ public class ClubMapper {
                 .finances(club.getFinances())
                 .build();
     }
-
 }

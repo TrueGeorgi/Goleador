@@ -33,31 +33,31 @@ constructor(
     const credentials: LoginRequest = { username: this.username, password: this.password };
 
     this.authService.login(credentials).subscribe({
-      next: async (response) => {
-        localStorage.setItem('authToken', response.token);
-        this.authService.setUserData(response.userData)
+      next: async (authResponse) => {
+        localStorage.setItem('authToken', authResponse.token);
+        sessionStorage.setItem('clubId', authResponse.userData.clubId);
+        sessionStorage.setItem('username', authResponse.userData.username);  
         
-        await this.clubService.getClubData(response.userData.clubId).subscribe({
-          next: (response: ClubData) => {
-            console.log(response);
-            this.clubService.setClubData(response);
-            this.router.navigate(['/club-page']);
+        await this.clubService.getClubData(authResponse.userData.clubId).subscribe({
+          next: (clubResponse: ClubData) => {
+            this.clubService.setClubData(clubResponse);
           },
           error: (err) => {
             console.log('FUUUUUCK ERROR', err);
           }
         });
 
-        await this.playerService.getUserClubsPlayers(response.userData.clubId).subscribe({
-          next: (response: PlayerData[]) => {
-            console.log(response);
-            this.playerService.setclubsPlayersData(response);
+        await this.playerService.getUserClubsPlayers(authResponse.userData.clubId).subscribe({
+          next: (playerResponse: PlayerData[]) => {
+            this.playerService.setclubsPlayersData(playerResponse);
           },
           error: (err) => {
             console.log('No players were hatched', err);
             
           }
         });
+
+        this.router.navigate(['/club-page']);
         this.eventService.sendData(true);
       },
       error: (err) => {

@@ -49,26 +49,25 @@ export class RegisterComponent {
     const userData: RegisterRequest = { username: this.username, password: this.password };
   
     this.authService.register(userData).subscribe({
-      next: async (response) => {
-        console.log('Registration successful:', response);
+      next: async (authResponse) => {
+        console.log('Registration successful:', authResponse);
         
-        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('authToken', authResponse.token);
+        sessionStorage.setItem('clubId', authResponse.userData.clubId);
+        sessionStorage.setItem('username', authResponse.userData.username);        
 
-        await this.clubService.getClubData(response.userData.clubId).subscribe({
-          next: (response: ClubData) => {
-            console.log(response);
-            this.clubService.setClubData(response);
-            this.router.navigate(['/club-page']);
+        await this.clubService.getClubData(authResponse.userData.clubId).subscribe({
+          next: (clubResponse: ClubData) => {
+            this.clubService.setClubData(clubResponse);
           },
           error: (err) => {
             console.log('FUUUUUCK ERROR', err);
           }
         });
 
-        await this.playerService.getUserClubsPlayers(response.userData.clubId).subscribe({
-          next: (response: PlayerData[]) => {
-            console.log(response);
-            this.playerService.setclubsPlayersData(response);
+        await this.playerService.getUserClubsPlayers(authResponse.userData.clubId).subscribe({
+          next: (playersResponse: PlayerData[]) => {
+            this.playerService.setclubsPlayersData(playersResponse);
           },
           error: (err) => {
             console.log('No players were hatched', err);
@@ -77,7 +76,6 @@ export class RegisterComponent {
         });
         
         this.eventService.sendData(true);
-  
         this.router.navigate(["club-page"]);
       },
       error: (err) => {

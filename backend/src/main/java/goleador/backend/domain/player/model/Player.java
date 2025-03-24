@@ -40,5 +40,9 @@ public class Player {
     @Column(nullable = false)
     private int skill;
 
+    private int goals;
+
+    private int appearances;
+
 //    private List<Training> trainings; // TODO - add the training here
 }

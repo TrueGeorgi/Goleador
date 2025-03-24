@@ -23,11 +23,8 @@ public class Log {
     private int minute;
 
     @Column(nullable = false)
-    private boolean goal;
+    private String message;
 
     @ManyToOne
     private Game game;
-
-    @Column(nullable = false, name = "current_stand")
-    private String currentStand;
 }

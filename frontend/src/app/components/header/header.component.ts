@@ -20,6 +20,7 @@ export class HeaderComponent {
     this.eventService.dataEmitter.subscribe(data => {
       this.isLogged = data;
     });
+    this.isLogged = !!localStorage.getItem('authToken');
   }
 
   navigateTo(route: string) {
