@@ -37,6 +37,18 @@
     color: white;
 }
 
+.edit-btn:hover {
+    background: linear-gradient(120deg, #501709, #300202);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.edit-btn:active {
+    background: linear-gradient(120deg, #912e16, #7e1212);
+    transform: scale(0.98);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 // manager + club profiles
 
 .details-view {

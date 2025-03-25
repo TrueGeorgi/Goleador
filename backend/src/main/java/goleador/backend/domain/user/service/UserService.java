@@ -7,10 +7,7 @@ import goleador.backend.domain.club.service.ClubService;
 import goleador.backend.domain.user.model.User;
 import goleador.backend.domain.user.model.UserRole;
 import goleador.backend.domain.user.repository.UserRepository;
-import goleador.backend.web.dto.AuthenticationResponse;
-import goleador.backend.web.dto.LoginRequest;
-import goleador.backend.web.dto.RegisterRequest;
-import goleador.backend.web.dto.UserData;
+import goleador.backend.web.dto.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -111,5 +107,14 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return this.userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
+    }
+
+    public void editUser(String username, UserEdit userEdit) {
+        User user = userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
+        user.setFirstName(userEdit.getFirstName());
+        user.setLastName(userEdit.getLastName());
+        user.setEmail(userEdit.getEmail());
+        user.setProfilePicture(userEdit.getProfilePicture());
+        userRepository.save(user);
     }
 }

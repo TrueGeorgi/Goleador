@@ -25,6 +25,12 @@ public class Log {
     @Column(nullable = false)
     private String message;
 
+    @Column(nullable = false)
+    private boolean isHomeGoal;
+
+    @Column(nullable = false)
+    private boolean isAwayGoal;
+
     @ManyToOne
     private Game game;
 }

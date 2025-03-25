@@ -1,35 +1,52 @@
 import { Component } from '@angular/core';
 import { MatchService } from '../../services/match.service';
-import { Log } from '../../dtos/Log';
+import { LogData } from '../../dtos/LogData';
 import { GameData } from '../../dtos/GameData';
+import { LogService } from '../../services/log.service';
+import { interval, takeWhile } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-match-window',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './match-window.component.html',
   styleUrl: './match-window.component.scss'
 })
 export class MatchWindowComponent {
 
   gameData: GameData | null = null;
-  logsRaw: Log[] = [];
-  logs: Log[] = []
+  logsRaw: LogData[] = [];
+  clubId: string | null = '';
+  displayLogs: LogData[] = [];
+  minuteOnBoard = 0;
+  homeTeamGoals = 0;
+  awayTeamGoals = 0;
 
-  constructor(private matchService: MatchService) {}
+  constructor(private matchService: MatchService, private logService: LogService) {
 
-  ngOnInit() {
-    const clubId = sessionStorage.getItem('clubId');
-
-    if(clubId) {
-      this.getGameDetails(clubId);
-    }
-    
   }
 
-  getGameDetails(clubId: string) {
-    this.matchService.getNewGame(clubId).subscribe({
-      next: (data) => {
-        this.gameData = data;
+  ngOnInit() {
+      this.clubId = sessionStorage.getItem('clubId');
+  }
+
+  playGame() {
+    if(this.clubId === null) {
+      return;
+    }
+    this.matchService.getNewGame(this.clubId).subscribe({
+      next: (matchData) => {
+        this.gameData = matchData;
+        this.logService.getGameLogs(this.gameData.gameId).subscribe({
+          next:(logsData) => {
+            this.logsRaw = logsData
+            console.log(this.logsRaw);
+            this.showDirectResult();
+          },
+          error: (error) => {
+            console.error('Error fetching logs data:', error);
+          }
+        })
       },
       error: (error) => {
         console.error('Error fetching club data:', error);
@@ -38,7 +55,16 @@ export class MatchWindowComponent {
   }
 
   showDirectResult() {
-    this.logs = 
+    console.log(this.gameData);
+    console.log(this.logsRaw);
+    
+    this.displayLogs = this.logsRaw;
+    this.minuteOnBoard = 90;
+    if(this.gameData) {
+      this.homeTeamGoals = this.gameData.homeTeamGoals;
+      this.awayTeamGoals = this.gameData.awayTeamGoals;
+    }
+    
   }
 
 }

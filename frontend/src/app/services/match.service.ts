@@ -12,7 +12,19 @@ export class MatchService {
 
   constructor(private http: HttpClient) { }
 
-   getNewGame(homeClubId: string): Observable<GameData> {
-      return this.http.post<GameData>(`${this.apiUrl}/play-game`, homeClubId);
-    }
+  getNewGame(homeClubId: string): Observable<GameData> {
+    return this.http.post<GameData>(`${this.apiUrl}/play-game`, homeClubId);
+  }
+
+  getLastGame(teamId: string): Observable<GameData> {
+    return this.http.get<GameData>(`${this.apiUrl}/last-game`, {
+    params: {teamId: teamId}
+  })
+  }
+
+  getNumberOfGames(teamId: string): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/all-user-games-count`, {
+      params: {clubId: teamId}
+    })
+  }
 }

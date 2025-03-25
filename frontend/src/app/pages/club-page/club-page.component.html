@@ -23,34 +23,36 @@
         <div class="grid-box last-match-box">
             <div class="last-match-text">Last Result</div>
             <div class="teams-box">
-                <div class="team">FC Ruse</div>
-                <div class="team">FC Bravo</div>
+                <div class="team">{{lastGame?.homeTeamName}}</div>
+                <div class="team">{{lastGame?.awayTeamName}}</div>
             </div>
             <div class="result">
-                <div class="score">1</div>
+                <div class="score">{{lastGame?.homeTeamGoals}}</div>
                 <div>:</div>
-                <div class="score">2</div>
+                <div class="score">{{lastGame?.awayTeamGoals}}</div>
             </div>
         </div>
         <div class="grid-box logo-box">
-            <img src="https://cdn.vectorstock.com/i/1000v/33/24/football-logo-design-template-vector-30733324.jpg" alt="Team Logo" class="logo">
+            <img [src]="clubData?.logo" alt="Team Logo" class="logo">
+            <button class="edit-btn" (click)="editClub()">Edit club</button>
         </div>
         <div class="grid-box manager">
-            <img src="https://www.aljazeera.com/wp-content/uploads/2024/01/2024-01-16T085624Z_603053148_RC2811APCP3T_RTRMADP_3_SOCCER-ITALY-MOURINHO-1705409377.jpg?resize=1920%2C1440" alt="Manager Photo" class="manager-photo">
+            <img [src]="userData?.profilePicture" alt="Manager Photo" class="manager-photo">
             <div class="manager-info">
-                <h2 class="manager-name">{{userData?.username}}</h2>
-                <p class="manager-stats">Games Played: <span>25</span></p>
-                <p class="manager-stats">Current Points: <span>57</span></p>
-                <button class="logout-btn" (click)="logout()">Logout</button>
+                <h2 class="manager-name" (click)="navigateTo('manager-profile')">{{userData?.username}}</h2>
+                <p class="manager-stats">
+                    Games Played: 
+                    <span class="games-number" (click)="navigateTo('past-results')">{{numberOfGames}}</span>
+                </p>
+                <p class="manager-stats">Current Points: <span>{{clubData?.points}}</span></p>
             </div>
         </div>        
         <div class="grid-box eternal-position">
-            <p class="eternal-rank">Eternal Position: <span class="position">5th</span></p>
+            <p class="eternal-rank">Eternal Position: <span class="position" (click)="navigateTo('eternal-ranklist')">{{position}}</span></p>
         </div>        
         <div class="grid-box dashboard">
-            <div class="transfer-window-btn">Transfer window</div>
-            <div class="training-btn">Training</div>
-            <div class="finances-view">{{clubData?.finances | currencyFormat}}</div>
+            <div class="training-btn" (click)="navigateTo('training')">Training</div>
+            <div class="finances-view" (click)="navigateTo('manager-profile')">{{clubData?.finances | currencyFormat}}</div>
             <div class="home-btn" (click)="navigateTo('match-window')">Play a game</div>
         </div>
     </div>

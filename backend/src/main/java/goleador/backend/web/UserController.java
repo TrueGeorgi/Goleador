@@ -5,13 +5,11 @@ import goleador.backend.domain.user.model.User;
 import goleador.backend.domain.user.service.UserService;
 import goleador.backend.web.dto.ClubData;
 import goleador.backend.web.dto.UserData;
+import goleador.backend.web.dto.UserEdit;
 import goleador.backend.web.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -25,12 +23,17 @@ public class UserController {
 
     // TODO - get all users ordered by points desc
     // TODO - edit user data
-    // TODO - get user data
 
     @GetMapping("/{username}")
     public ResponseEntity<UserData> getUser(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
         UserData userData = userMapper.toUserData(user);
         return ResponseEntity.ok(userData);
+    }
+
+    @PostMapping("/{username}")
+    public ResponseEntity<UserData> updateUser(@PathVariable String username, @RequestBody UserEdit userEdit) {
+        userService.editUser(username, userEdit);
+        return ResponseEntity.noContent().build();
     }
 }

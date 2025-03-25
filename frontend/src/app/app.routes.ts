@@ -12,13 +12,13 @@ import { PlayerProfileComponent } from './pages/player-profile/player-profile.co
 import { RegisterComponent } from './pages/register/register.component';
 import { TeamViewComponent } from './pages/team-view/team-view.component';
 import { TrainingComponent } from './pages/training/training.component';
-import { TransferWindowComponent } from './pages/transfer-window/transfer-window.component';
 import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/guest.guard';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { EditClubComponent } from './pages/edit-club/edit-club.component';
 
 export const routes: Routes = [
     {path: '', component: IndexComponent},
-    {path: 'transfer-window', component: TransferWindowComponent, canActivate: [AuthGuard]},
     {path: 'training', component: TrainingComponent, canActivate: [AuthGuard]},
     {path: 'team-view', component: TeamViewComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
@@ -31,5 +31,7 @@ export const routes: Routes = [
     {path: 'club-page', component: ClubPageComponent, canActivate: [AuthGuard]},
     {path: 'about-the-game', component: AboutTheGameComponent},
     {path: 'about-me', component: AboutMeComponent},
-    {path: '**', component: AboutMeComponent},
+    {path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]},
+    {path: 'edit-club', component: EditClubComponent, canActivate: [AuthGuard]},
+    {path: '**', component: AboutMeComponent, canActivate: [GuestGuard]},
 ];

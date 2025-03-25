@@ -117,7 +117,7 @@ public class PlayerService {
     }
 
     public List<PlayerData> getTeamsPlayers(UUID teamId) {
-        Optional<List<Player>> players = this.playerRepository.findAllByClubId(teamId);
+        Optional<List<Player>> players = this.playerRepository.findAllByClubIdOrderByPosition(teamId);
         if (players.isEmpty()) {
             throw new RuntimeException(); // TODO - do something else instead of error
         }

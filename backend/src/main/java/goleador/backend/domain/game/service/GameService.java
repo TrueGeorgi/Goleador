@@ -27,6 +27,7 @@ public class GameService {
     private final LogService logService;
     private final PlayerService playerService;
     private final Random random;
+    private final GameMapper gameMapper;
 
     private int homeGkPower;
     private int homeDefPower;
@@ -64,23 +65,48 @@ public class GameService {
         this.homeTeamStrength = this.homeGkPower + this.homeDefPower + this.homeMidPower + this.homeAttPower;
         this.awayTeamStrength = this.awayGkPower + this.awayDefPower + this.awayMidPower + this.awayAttPower;
 
-        List<Log> gameLogs = new ArrayList<>();
         int homeGoals = 0;
         int awayGoals = 0;
 
+
+        Game game = Game.builder()
+                .date(LocalDate.now())
+                .hostTeam(homeClub)
+                .awayTeam(awayClub)
+                .goalsTeamA(homeGoals)
+                .goalsTeamB(awayGoals)
+                .result(Result.DRAW)
+                .build();
+
+        gameRepository.save(game);
+
+        int possibility;
+
         for (int i = 0; i <= 90 ; i++) {
+            possibility = random.nextInt(3);
+            if (possibility != 0) {
+                continue;
+            }
             Goal goal = goalPossibility(homeClub, awayClub, homeGoals, awayGoals);
             if (goal.isGoal()) {
                 switch (goal.getSide()) {
-                    case "Home" -> homeGoals++;
-                    case "Away" -> awayGoals++;
+                    case "Home" -> {
+                        homeGoals++;
+                        logService.initializeLog(i, goal.getMessage(), true, false, game);
+
+                    }
+                    case "Away" -> {
+                        awayGoals++;
+                        logService.initializeLog(i, goal.getMessage(), false, true, game);
+
+                    }
+                    default -> {
+                        throw new IllegalArgumentException("Invalid goal: " + goal); // TODO- handle error
+                    }
                 }
+            } else  {
+                logService.initializeLog(i, goal.getMessage(), false, false, game);
             }
-
-            Log log = logService.initializeLog(i, goal.getMessage());
-
-            gameLogs.add(log);
-
         }
 
         Result gameResult;
@@ -90,18 +116,15 @@ public class GameService {
         } else if (awayGoals > homeGoals) {
             gameResult = Result.TEAM_B;
         } else {
-            gameResult =Result.DRAW;
+            gameResult = Result.DRAW;
         }
 
-        return Game.builder()
-                .date(LocalDate.now())
-                .hostTeam(homeClub)
-                .awayTeam(awayClub)
-                .goalsTeamA(homeGoals)
-                .goalsTeamB(awayGoals)
-                .result(gameResult)
-                .logs(gameLogs)
-                .build();
+        game.setResult(gameResult);
+        game.setGoalsTeamA(homeGoals);
+        game.setGoalsTeamB(awayGoals);
+        gameRepository.save(game);
+
+        return game;
     }
 
     private Goal goalPossibility(Club homeClub, Club awayClub, int homeGoals, int awayGoals) {
@@ -208,13 +231,23 @@ public class GameService {
         }
     }
 
-//    public GameData getLastGame(UUID teamId) {
-//        Optional<Game> game = this.gameRepository.findFirstByHomeTeamIdOrAwayTeamIdOrderByCreatedOnDesc(teamId, teamId);
-//        int test = 1;
-//        if (game.isEmpty()) {
-//            throw new RuntimeException("There is no last game"); // TODO - an error here
-//        }
-//
-//        return gameMapper.toGameData(game.get());
-//    }
+
+    public Game getLastGame(UUID teamId) {
+        Optional<Game> game = this.gameRepository.findFirstByHostTeamIdOrAwayTeamIdOrderByDateDesc(teamId, teamId);
+        if (game.isEmpty()) {
+            throw new RuntimeException("There is no last game"); // TODO - an error here
+        }
+
+        return game.get();
+    }
+
+    public int getAllUserGamesCount(UUID teamUuid) {
+       Optional<List<Game>> games = gameRepository.findAllByHostTeamIdOrAwayTeamId(teamUuid, teamUuid);
+
+       if (games.isEmpty()) {
+           throw new RuntimeException("There is no last game"); // TODO - handle error
+       }
+
+        return games.get().size();
+    }
 }

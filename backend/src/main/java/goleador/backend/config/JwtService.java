@@ -19,7 +19,6 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final String SECRET_KEY = "Bfu91T7pRtROolg3oQwuoo/mwowSqZQCQF9/tm49pxY78wyfFTUANUScJpVQVXXw";
-    private final int tokenValidityInSeconds = 1000 * 60 * 24; // 1 day
 
     public String extractUsername(String token) {
 
@@ -31,12 +30,18 @@ public class JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+
+        int milliseconds = 1000;
+        int seconds = 60;
+        int minutes = 60;
+        int hours = 24;
+
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + milliseconds * seconds * minutes * hours))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

@@ -12,12 +12,12 @@ public class GameMapper {
 
     public GameData toGameData(Game game) {
         return GameData.builder()
-                .hostTeamName(game.getHostTeam().getName())
-                .hostTeamGoals(game.getGoalsTeamA())
+                .homeTeamName(game.getHostTeam().getName())
+                .homeTeamGoals(game.getGoalsTeamA())
                 .awayTeamName(game.getAwayTeam().getName())
                 .awayTeamGoals(game.getGoalsTeamB())
                 .result(game.getResult())
-                .logs(game.getLogs().stream().map(Log::getId).collect(Collectors.toList()))
+                .gameId(game.getId())
                 .build();
     }
 }

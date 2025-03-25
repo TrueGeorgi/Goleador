@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manager-profile',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class ManagerProfileComponent {
 
+  constructor(private router: Router){}
+
+  editProfile() {
+    this.router.navigate(['/edit-profile']);
+  }
 }

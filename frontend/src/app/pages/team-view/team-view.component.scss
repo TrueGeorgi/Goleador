@@ -46,6 +46,26 @@ tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+tbody tr:nth-child(even):hover {
+    background-color: #cac9c9;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(even):active {
+    background-color: #f8f1f1;
+    cursor: pointer;
+}
+
 tbody tr:nth-child(odd) {
     background-color: #fdfffe;
+}
+
+tbody tr:nth-child(odd):hover {
+    background-color: #bebebe;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(odd):active {
+    background-color: #ffffff;
+    cursor: pointer;
 }

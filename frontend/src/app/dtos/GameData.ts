@@ -3,6 +3,6 @@ export interface GameData {
     homeTeamGoals: number;
     awayTeamName: string;
     awayTeamGoals: number;
-    winner: string;
-    logsIds: string[];
+    result: string;
+    gameId: string;
 }

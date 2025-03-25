@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public interface PlayerRepository extends CrudRepository<Player, UUID> {
 
-    Optional<List<Player>> findAllByClubId(UUID club_id);
+    Optional<List<Player>> findAllByClubIdOrderByPosition(UUID club_id);
 
     Optional<List<Player>> findAllByPosition(Position position);
 }

@@ -141,6 +141,7 @@
     align-items: center;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    flex-direction: column;
 }
 
 .logo {
@@ -148,6 +149,7 @@
     max-height: 80%;
     object-fit: contain;
     border-radius: 45px;
+    margin-bottom: 15px;
 }
 
 // manager
@@ -200,12 +202,21 @@
     margin: 5px 0;
 }
 
+.games-number:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.games-number:active {
+    transform: scale(0.95);
+}
+
 .manager-stats span {
     font-weight: bold;
     color: darkgreen;
 }
 
-.logout-btn {
+.edit-btn {
     padding: 10px 25px;
     font-size: 16px;
     font-weight: bold;
@@ -215,13 +226,13 @@
     color: white;
 }
 
-.logout-btn:hover {
+.edit-btn:hover {
     background: linear-gradient(120deg, #501709, #300202);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-.logout-btn:active {
+.edit-btn:active {
     background: linear-gradient(120deg, #912e16, #7e1212);
     transform: scale(0.98);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);

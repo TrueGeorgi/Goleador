@@ -98,12 +98,19 @@
 .direct-result {
     background: linear-gradient(120deg, #49b3d3, #194dbd);
     color: white;
+    cursor: pointer;
 }
 
-.with-logs {
-    background: linear-gradient(120deg, #73f068, #149b10);
-    // color: white;
+.direct-result:hover {
+    background: linear-gradient(120deg, #5cc8e0, #2360e0);
+    transform: scale(1.05);
 }
+
+.direct-result:active {
+    background: linear-gradient(120deg, #3a94b1, #153e96);
+    transform: scale(0.95);
+}
+
 
 // .match-log div:contains("GOAL") {
 //     color: green;

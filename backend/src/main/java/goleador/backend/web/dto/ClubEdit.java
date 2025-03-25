@@ -1,5 +1,6 @@
 package goleador.backend.web.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LogData {
-    private int minute;
-    private String message;
-    private boolean isHomeGoal;
-    private boolean isAwayGoal;
+public class ClubEdit {
+
+    @Size(min = 5)
+    String clubName;
+    String clubLogo;
 }

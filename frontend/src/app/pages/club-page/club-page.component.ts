@@ -11,6 +11,8 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { CapitalizePipe } from "../../pipes/capitalize.pipe";
 import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
+import { MatchService } from '../../services/match.service';
+import { GameData } from '../../dtos/GameData';
 
 @Component({
   selector: 'app-club-page',
@@ -21,19 +23,22 @@ import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
 export class ClubPageComponent implements OnInit {
 
   clubData: ClubData | null = null;
+  position: string = '';
 
   clubPlayersData: PlayerData[] | null = null;
   topFiveGoalscoreres: PlayerData[] = [];
 
   userData: UserData | null = null;
 
+  lastGame: GameData | null = null;
+  numberOfGames: string = '';
+
   constructor(
-    private authService: AuthServiceService, 
     private router: Router,
     private clubService: ClubService,
     private playerService: PlayerService,
-    private eventService: EventService,
-    private userService: UserService
+    private userService: UserService,
+    private matchService: MatchService
   ) {}
 
   ngOnInit() {
@@ -43,6 +48,9 @@ export class ClubPageComponent implements OnInit {
     if(clubId) {
       this.getClubData(clubId);
       this.getClubPlayersData(clubId);
+      this.getLastGame(clubId);
+      this.getNumberOfGames(clubId);
+      this.getClubPosition(clubId);
       
     } else {
       console.log('club id did not work');
@@ -85,6 +93,8 @@ export class ClubPageComponent implements OnInit {
     this.userService.getUserData(username).subscribe({
       next: (data) => {
         this.userData = data;
+        console.log(data);
+        
       },
       error: (error) => {
         console.error('Error fetching club data:', error);
@@ -98,13 +108,44 @@ export class ClubPageComponent implements OnInit {
     }
   }
 
-  navigateTo(path: string) {
-    this.router.navigate([path]);
+  getLastGame(clubId: string) {
+    this.matchService.getLastGame(clubId).subscribe({
+      next: (data) => {
+        this.lastGame = data;
+      },
+      error: (error) => {
+        console.error('Error fetching last game data:', error);
+      }
+    })
   }
 
-  logout() {
-    this.authService.logout();
-    this.eventService.sendData(false);
-    this.router.navigate(['/login']);
+  getNumberOfGames(clubId: string) {
+    this.matchService.getNumberOfGames(clubId).subscribe({
+      next: (data) => {
+        this.numberOfGames = data;
+      },
+      error: (error) => {
+        console.error('Error fetching number of games data:', error);
+      }
+    })
+  }
+
+  getClubPosition(clubId: string) {
+    this.clubService.getClubPosition(clubId).subscribe({
+      next: (data) => {
+        this.position = data;
+      },
+      error: (error) => {
+        console.error('Error fetching position data:', error);
+      }
+    })
+  }
+
+  editClub() {
+    this.navigateTo('/edit-club')
+  }
+
+  navigateTo(path: string) {
+    this.router.navigate([path]);
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ClubData } from '../dtos/ClubData';
 import { PlayerData } from '../dtos/PlayerData';
+import { ClubEdit } from '../dtos/ClubEdit';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,16 @@ export class ClubService {
 
   getClubData(username: string): Observable<ClubData> {
     return this.http.get<ClubData>(`${this.apiUrl}/${username}`)
+  }
+
+  editClubData(clubId: string, clubdata: ClubEdit): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${clubId}`, clubdata)
+  }
+
+  getClubPosition(clubId: string): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/club-position`, {
+      params: {clubId: clubId}
+    })
   }
 
   setClubData(data: ClubData) {

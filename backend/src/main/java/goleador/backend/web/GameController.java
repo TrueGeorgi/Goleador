@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,8 +23,9 @@ public class GameController {
     @GetMapping("/last-game")
     public ResponseEntity<GameData> getLastGame(@RequestParam String teamId) {
         UUID teamUuid = UUID.fromString(teamId);
-//        GameData lastGame = this.gameService.getLastGame(teamUuid);
-        return null; // TODO - return should not be null
+        Game lastGame = this.gameService.getLastGame(teamUuid);
+        GameData gameData = gameMapper.toGameData(lastGame);
+        return ResponseEntity.ok(gameData);
     }
 
     @PostMapping("play-game")
@@ -30,9 +33,14 @@ public class GameController {
         UUID homeTeamUuid = UUID.fromString(homeClubId);
         Game game = gameService.playGame(homeTeamUuid);
         GameData gameData = gameMapper.toGameData(game);
-        int test1 = 1;
         return ResponseEntity.ok(gameData);
     }
 
-    // TODO - get all games by user
+    @GetMapping("/all-user-games-count")
+    public ResponseEntity<BigDecimal> getAllUserGames(@RequestParam String clubId) {
+        UUID teamUuid = UUID.fromString(clubId);
+        int gamesCount = gameService.getAllUserGamesCount(teamUuid);
+        return ResponseEntity.ok(BigDecimal.valueOf(gamesCount));
+    }
+
 }

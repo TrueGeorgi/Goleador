@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LogData {
-    private int minute;
-    private String message;
-    private boolean isHomeGoal;
-    private boolean isAwayGoal;
+public class UserEdit {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String profilePicture;
 }

@@ -16,10 +16,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class GameData {
 
-    private String hostTeamName;
+    private String homeTeamName;
     private String awayTeamName;
-    private int hostTeamGoals;
+    private int homeTeamGoals;
     private int awayTeamGoals;
     private Result result;
-    private List<UUID> logs;
+    private UUID gameId;
 }
