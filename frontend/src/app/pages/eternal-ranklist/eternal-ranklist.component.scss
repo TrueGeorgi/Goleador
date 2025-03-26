@@ -1,9 +1,10 @@
 .eternal-ranklist-main-container {
-    height: 100vh;
+    min-height: calc(100vh - 110px);
     background: url('https://roto.com/uploads/Projects/hall-of-fame-headquarters/_1920x9999_fit_center-center_99_none/American-Home-Furnishings-Hall-of-Fame-Exhibition-Design-by-Roto-6.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 // header

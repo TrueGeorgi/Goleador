@@ -22,6 +22,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final String DEFAULT_PROFILE_PICTURE = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzy0oBDYLgLAY_B6JzM5RPbBOCnckZlW26bg&s";
+
     private final UserRepository userRepository;
     private final ClubService clubService;
     private final PasswordEncoder passwordEncoder;
@@ -50,7 +52,7 @@ public class UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .clubId(user.getClub().getId())
-                .profilePicture(user.getProfilePicture())
+                .profilePicture(DEFAULT_PROFILE_PICTURE)
                 .build();
 
 

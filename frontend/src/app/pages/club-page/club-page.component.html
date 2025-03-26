@@ -10,7 +10,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let player of topFiveGoalscoreres">
+                        <tr *ngFor="let player of topFiveGoalscoreres" (click)="navigateToPlayer('player-profile', player)">
                             <td>{{ player.firstName | capitalize }} <span class="last-name">{{ player.lastName | capitalize }}</span></td>
 
                             <td>{{player.goals}}</td>

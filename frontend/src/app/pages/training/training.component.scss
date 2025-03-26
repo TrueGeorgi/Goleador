@@ -1,0 +1,71 @@
+.training-main-container {
+    min-height: calc(100vh - 110px);
+    background: url('https://www.pendlesportswear.co.uk/blog/wp-content/uploads/143-1024x674.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.finances-container {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(120deg, rgba(43, 43, 43, 0.9), rgba(66, 68, 66, 0.9));
+    padding: 20px 35px;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    margin-top: -180px;
+}
+
+.finances:hover {
+    cursor: pointer;
+    color: #8aa387;
+}
+
+
+.drop-down {
+    padding: 15px 30px;
+    background: linear-gradient(120deg, rgba(43, 43, 43, 0.9), rgba(66, 68, 66, 0.9));
+    border-radius: 15px;
+    color: #fff;
+}
+
+.option {
+    background-color: rgb(236, 236, 236) !important;
+    border-bottom: 1px solid rgb(196, 196, 196);
+}
+
+.training {
+    background: linear-gradient(120deg, rgba(43, 43, 43, 0.9), rgba(66, 68, 66, 0.9));
+    color: white;
+    padding: 35px 60px;
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+    font-size: 22px;
+}
+
+.training div {
+    font-weight: bold;
+}
+
+.training button {
+    background: linear-gradient(120deg, #d4af37, #b8860b); /* Gold gradient */
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.training button:hover {
+    background: linear-gradient(120deg, #b8860b, #8b6508);
+    transform: scale(1.05);
+}

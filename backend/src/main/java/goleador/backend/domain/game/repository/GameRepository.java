@@ -14,5 +14,5 @@ public interface GameRepository extends JpaRepository<Game, UUID> {
 
     Optional<Game> findFirstByHostTeamIdOrAwayTeamIdOrderByDateDesc(UUID homeTeamId, UUID awayTeamId);
 
-    Optional<List<Game>> findAllByHostTeamIdOrAwayTeamId(UUID homeTeamId, UUID awayTeamId);
+    Optional<List<Game>> findAllByHostTeamIdOrAwayTeamIdOrderByDateDesc(UUID homeTeamId, UUID awayTeamId);
 }

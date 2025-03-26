@@ -1,32 +1,43 @@
 :host {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
+}
+  
+.nav-bar {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logged {
+  justify-content: space-between;
+}
+
+button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #555;
   }
-  
-  .nav-bar {
-    display: flex;
-    align-items: center;
-    background-color: #333;
-    padding: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+.logout-btn {
+  background-color: rgb(231, 106, 106);
+
+  &:hover {
+    background-color: #f54646;
   }
-  
-  button {
-    background-color: #444;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-right: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #555;
-    }
-  }
-  
-  button:last-child {
-    margin-right: 0;
-  }
-  
+}

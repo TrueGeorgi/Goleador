@@ -3,18 +3,18 @@
         <div class="grid-box details-view">
             <img src="https://www.aljazeera.com/wp-content/uploads/2024/01/2024-01-16T085624Z_603053148_RC2811APCP3T_RTRMADP_3_SOCCER-ITALY-MOURINHO-1705409377.jpg?resize=1920%2C1440" alt="Manager Photo" class="photo">
             <div class="info">
-                <p class="details">First name: <span>Jose</span></p>
-                <p class="details">Last name: <span>Mourinho</span></p>
-                <p class="details">E-mail: <span>mourinho.jose&#64;yahoo.com</span></p>
+                <p class="details">First name: <span>{{userData?.firstName}}</span></p>
+                <p class="details">Last name: <span>{{userData?.lastName}}</span></p>
+                <p class="details">E-mail: <span>{{userData?.email}}</span></p>
             </div>
-            <button class="edit-btn" (click)="editProfile()">Edit profile</button>
+            <button class="edit-btn" (click)="navigateTo('edit-profile')">Edit profile</button>
         </div> 
         <div class="grid-box details-view">
             <img src="https://cdn.vectorstock.com/i/1000v/33/24/football-logo-design-template-vector-30733324.jpg" alt="Manager Photo" class="photo">
             <div class="info">
-                <p class="details">Club name: <span>FC Bravo</span></p>
-                <p class="details">Eternal rank: <span>5th</span></p>
-                <p class="details">Created on: <span>26.02.2025</span></p>
+                <p class="details">Club name: <span>{{clubData?.clubName}}</span></p>
+                <p class="details">Eternal rank: <span (click)="navigateTo('eternal-ranklist')" class="rank-number">{{position}}</span></p>
+                <p class="details">Created on: <span>{{clubData?.createdOn}}</span></p>
             </div>
         </div>
         <div class="grid-box finances-view">

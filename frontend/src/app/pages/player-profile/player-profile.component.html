@@ -2,18 +2,17 @@
     <div class="player-container">
         <h2 class="player-title">Player Profile</h2>
         <div class="player-grid">
-            <div class="label">First Name:</div> <div>Petar</div>
-            <div class="label">Last Name:</div> <div>Ivanov</div>
-            <div class="label">Country:</div> <div>Bulgaria</div>
+            <div class="label">First Name:</div> <div>{{player?.firstName ?? 'Unknown' | capitalize }}</div>
+            <div class="label">Last Name:</div> <div>{{player?.lastName ?? 'Unknown' | capitalize }}</div>
+            <div class="label">Country:</div> <div>{{ player?.nationality ?? 'Unknown' | capitalize }}</div>
             <div class="label">Club:</div> <div>FC Bravo</div>
-            <div class="label">Position:</div> <div>ATT</div>
-            <div class="label">Skill level:</div> <div>10</div>
-            <div class="label">Matches:</div> <div>32</div>
-            <div class="label">Goals:</div> <div>12</div>
+            <div class="label">Position:</div> <div>{{player?.position}}</div>
+            <div class="label">Skill level:</div> <div>{{player?.skill}}</div>
+            <div class="label">Goals:</div> <div>{{player?.goals}}</div>
         </div>
     </div>
     <div class="btn-box">
-        <button>View Team</button>
-        <button>Train this player</button>
+        <button (click)="navigateTo('team-view')">View Team</button>
+        <button (click)="navigateTo('training')">Train this player</button>
     </div>
 </div>

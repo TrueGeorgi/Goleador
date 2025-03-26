@@ -1,5 +1,5 @@
 .main-club-page-container {
-    height: 100vh;
+    min-height: calc(100vh - 110px);
     background: url('https://images.squarespace-cdn.com/content/v1/634d25953e1b7e0e4f6dc7ad/1666606797769-SWMBHQVDUSB94JRDAGJY/581A3451.JPG') no-repeat center center/cover;
     display: flex;
     justify-content: center;
@@ -28,6 +28,34 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even):hover {
+    background-color: #cac9c9;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(even):active {
+    background-color: #f8f1f1;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #fdfffe;
+}
+
+tbody tr:nth-child(odd):hover {
+    background-color: #bebebe;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(odd):active {
+    background-color: #ffffff;
+    cursor: pointer;
 }
 
 .player-name {

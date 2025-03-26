@@ -1,5 +1,5 @@
 .match-window-main-container {
-    height: 100vh;
+    min-height: calc(100vh - 110px);
     background: url('https://www.eventbrite.co.uk/blog/wp-content/uploads/2022/06/The-Trends-that-are-Redefining-the-Game-Day-Experience-main-pic-scaled.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;

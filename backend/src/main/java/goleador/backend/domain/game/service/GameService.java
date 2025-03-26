@@ -241,13 +241,17 @@ public class GameService {
         return game.get();
     }
 
+    public List<Game> getAllUserGames(UUID teamUuid) {
+        Optional<List<Game>> games = gameRepository.findAllByHostTeamIdOrAwayTeamIdOrderByDateDesc(teamUuid, teamUuid);
+
+        if (games.isEmpty()) {
+            throw new RuntimeException("There is no last game"); // TODO - handle error
+        }
+
+        return games.get();
+    }
+
     public int getAllUserGamesCount(UUID teamUuid) {
-       Optional<List<Game>> games = gameRepository.findAllByHostTeamIdOrAwayTeamId(teamUuid, teamUuid);
-
-       if (games.isEmpty()) {
-           throw new RuntimeException("There is no last game"); // TODO - handle error
-       }
-
-        return games.get().size();
+       return getAllUserGames(teamUuid).size();
     }
 }

@@ -1,1 +1,13 @@
-<p>past-results works!</p>
+<div class="eternal-ranklist-main-container">
+    <div class="header">Past results</div>
+    <table>
+        <tbody>
+            <tr *ngFor="let game of games">
+                <td>{{game.createdOn | date: 'd MMM y'}}</td>
+                <td>{{game.homeTeamName}}</td>
+                <td>{{game.homeTeamGoals}} : {{game.awayTeamGoals}}</td>
+                <td>{{game.awayTeamName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -12,7 +12,7 @@ public class PlayerMapper {
                 .firstName(player.getFirstName())
                 .lastName(player.getLastName())
                 .nationality(player.getNationality())
-                .clubId(player.getClub().getId())
+                .id(player.getId())
                 .position(player.getPosition())
                 .skill(player.getSkill())
                 .goals(player.getGoals())

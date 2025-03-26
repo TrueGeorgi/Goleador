@@ -1,5 +1,5 @@
 .player-main-container {
-    height: 100vh;
+    min-height: calc(100vh - 110px);
     background: url('https://www.pixcrafter.com/wp-content/uploads/2023/08/abstract-hexagonal-blue-background.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;

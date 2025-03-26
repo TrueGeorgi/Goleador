@@ -3,6 +3,7 @@ package goleador.backend.web;
 import goleador.backend.domain.game.model.Game;
 import goleador.backend.domain.game.service.GameService;
 import goleador.backend.web.dto.GameData;
+import goleador.backend.web.dto.GameDataWithCreatedOn;
 import goleador.backend.web.mapper.GameMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/game")
@@ -37,10 +39,18 @@ public class GameController {
     }
 
     @GetMapping("/all-user-games-count")
-    public ResponseEntity<BigDecimal> getAllUserGames(@RequestParam String clubId) {
+    public ResponseEntity<BigDecimal> getAllUserGamesCount(@RequestParam String clubId) {
         UUID teamUuid = UUID.fromString(clubId);
         int gamesCount = gameService.getAllUserGamesCount(teamUuid);
         return ResponseEntity.ok(BigDecimal.valueOf(gamesCount));
+    }
+
+    @GetMapping("/all-user-games")
+    public ResponseEntity<List<GameDataWithCreatedOn>> getAllUserGames(@RequestParam String clubId) {
+        UUID teamUuid = UUID.fromString(clubId);
+        List<Game> games = gameService.getAllUserGames(teamUuid);
+        List<GameDataWithCreatedOn> gamesData = games.stream().map(gameMapper::toGameDataWithCreatedOn).toList();
+        return ResponseEntity.ok(gamesData);
     }
 
 }

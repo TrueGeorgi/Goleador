@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GameData } from '../dtos/GameData';
+import { GameDataWithCreatedOn } from '../dtos/GameDataWithCreatedOn';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,12 @@ export class MatchService {
 
   getNumberOfGames(teamId: string): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/all-user-games-count`, {
+      params: {clubId: teamId}
+    })
+  }
+
+  getAllGames(teamId: string): Observable<GameDataWithCreatedOn[]> {
+    return this.http.get<GameDataWithCreatedOn[]>(`${this.apiUrl}/all-user-games`, {
       params: {clubId: teamId}
     })
   }

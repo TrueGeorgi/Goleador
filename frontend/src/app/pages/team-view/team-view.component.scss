@@ -1,5 +1,5 @@
 .team-view-main {
-    height: 100vh;
+    min-height: calc(100vh - 110px);
     background: url('https://www.allcolorpowdercoating.com/wp-content/uploads/2015/12/UW-Football-Locker-Room.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
@@ -35,6 +35,24 @@ th {
     background-color: darkgreen;
     color: white;
     padding: 10px;
+}
+
+.sortable-table-header:hover {
+    background-color: rgb(1, 65, 1);
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sortable-table-header:active {
+    background-color: rgb(1, 134, 1);
+    color: white;
+    padding: 10px;
+}
+
+.selected-header {
+    color: rgb(250, 250, 228);
+    background-color: rgb(3, 48, 3);
 }
 
 td {

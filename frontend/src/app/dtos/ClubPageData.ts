@@ -1,3 +1,5 @@
+import { GameData } from "./GameData";
+
 interface ClubPageData {
     goalscorers: Goalscorer[];
     lastResult:  GameData;

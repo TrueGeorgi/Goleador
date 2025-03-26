@@ -1,1 +1,19 @@
-<p>training works!</p>
+<div class="training-main-container">
+  <div class="finances-container">Your finances: <span class="finances" (click)="navigateTo('manager-profile')">{{finances | currencyFormat}}</span></div>
+    <div class="drop-down">
+        <mat-form-field>
+            <mat-label>Select player</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="player" (selectionChange)="onSelectionChange($event)"> 
+              @for (player of players; track player) {
+                <mat-option [value]="player" class="option">{{player.firstName}} {{player.lastName}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="training">
+        <div>{{selectedValue?.firstName}} {{selectedValue?.lastName}}</div>
+        <div>Current skill : {{selectedValue?.skill}}</div>
+        <div>It will cost 200,000 $ to increase with +1</div>
+        <button>Pay and increase</button>
+    </div>
+</div>

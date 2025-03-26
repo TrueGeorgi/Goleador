@@ -17,7 +17,7 @@ public class PlayerData {
     private String firstName;
     private String lastName;
     private Nationality nationality;
-    private UUID clubId;
+    private UUID id;
     private Position position;
     private int skill;
     private int goals;

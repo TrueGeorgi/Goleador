@@ -1,21 +1,23 @@
-<div class="nav-bar">
+<div class="nav-bar logged">
+  <div>
     <button *ngIf="!isLogged" (click)="navigateTo('login')">Login</button>
     <button *ngIf="!isLogged" (click)="navigateTo('register')">Register</button>
+  </div>
+
   
-    <button (click)="navigateTo('about-me')">About me</button>
-    <button (click)="navigateTo('about-the-game')">About the game</button>
-  
-    <ng-container *ngIf="isLogged">
-      <button (click)="navigateTo('club-page')">Club page</button>
-      <button (click)="navigateTo('eternal-ranklist')">Eternal ranklist</button>
-      <button (click)="navigateTo('')">Index</button>
-      <button (click)="navigateTo('manager-profile')">Manager profile</button>
-      <button (click)="navigateTo('match-window')">Match window</button>
-      <button (click)="navigateTo('past-results')">Past results</button>
-      <button (click)="navigateTo('player-profile')">Player profile</button>
-      <button (click)="navigateTo('team-view')">Team view</button>
-      <button (click)="navigateTo('training')">Training</button>
-      <button (click)="logout()">Logout</button>
+    <ng-container *ngIf="isLogged" class="logged">
+      <div>
+        <button (click)="navigateTo('club-page')">Club page</button>
+        <button (click)="navigateTo('eternal-ranklist')">Eternal ranklist</button>
+        <button (click)="navigateTo('manager-profile')">Manager profile</button>
+        <button (click)="navigateTo('past-results')">Past results</button>
+        <button (click)="navigateTo('team-view')">Team view</button>
+        <button (click)="navigateTo('training')">Training</button>
+      </div>
+      <div>
+        <button (click)="logout()" class="logout-btn">Logout</button>
+      </div>
+      
     </ng-container>
   </div>
   

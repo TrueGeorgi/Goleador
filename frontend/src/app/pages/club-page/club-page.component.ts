@@ -148,4 +148,9 @@ export class ClubPageComponent implements OnInit {
   navigateTo(path: string) {
     this.router.navigate([path]);
   }
+
+  navigateToPlayer(page: string, player: PlayerData) {
+    this.playerService.setPlayer(player);
+    this.router.navigate([page]);
+  }
 }

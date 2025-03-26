@@ -1,5 +1,5 @@
 .main-container {
-    height: 100vh;
+  min-height: calc(100vh - 110px);
     background: url('https://amazinteriors.com/wp-content/uploads/2015/09/project-11.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;

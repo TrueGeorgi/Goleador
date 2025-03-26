@@ -1,0 +1,46 @@
+.eternal-ranklist-main-container {
+    min-height: calc(100vh - 110px);
+    background: url('https://wallpapers.com/images/hd/champions-league-background-4s3l2lyht0q9qkuz.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+// header
+
+.header {
+    background: linear-gradient(120deg, rgb(63, 62, 62), rgb(40, 40, 51));
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: rgb(240, 204, 120);
+    font-size: 80px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+// table
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background-color: darkgreen;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #fdfffe;
+}
