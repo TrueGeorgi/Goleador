@@ -10,6 +10,7 @@ import goleador.backend.domain.user.repository.UserRepository;
 import goleador.backend.web.dto.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements CommandLineRunner {
 
     private final String DEFAULT_PROFILE_PICTURE = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzy0oBDYLgLAY_B6JzM5RPbBOCnckZlW26bg&s";
 
@@ -32,17 +33,19 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public AuthenticationResponse register(RegisterRequest registerRequest) {
+    public AuthenticationResponse register(RegisterRequest registerRequest, boolean isAdmin) {
         Optional<User> optionalUser = userRepository.findByUsername(registerRequest.getUsername());
 
         if (optionalUser.isPresent()) {
             throw new RuntimeException("Username is already in use");
         }
 
-        User user = userRepository.save(initializeUser(registerRequest));
+        User user = userRepository.save(initializeUser(registerRequest, isAdmin));
 
         Club club = clubService.createClub(user);
         user.setClub(club);
+
+        userRepository.save(user);
 
         String jwtToken = jwtService.generateToken(user);
 
@@ -62,25 +65,33 @@ public class UserService {
                 .build();
     }
 
-    private User initializeUser(RegisterRequest registerRequest) {
+    private User initializeUser(RegisterRequest registerRequest, boolean isAdmin) {
+
+        UserRole role = UserRole.USER;
+
+        if (isAdmin) {
+            role = UserRole.ADMIN;
+        }
 
         return User.builder()
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(UserRole.USER)
+                .role(role)
                 .build();
     }
 
+    protected void createFirstUser() {
+        RegisterRequest registerRequest = RegisterRequest.builder()
+                .username("Administrator")
+                .password("123123")
+                .build();
+
+        register(registerRequest, true);
+    }
+
+
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
-//        Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
-//
-//        if (optionalUser.isEmpty()) {
-//            throw new RuntimeException("User with " + loginRequest.getUsername() + " not found");
-//        }
-//
-//        User user = optionalUser.get();
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -118,5 +129,12 @@ public class UserService {
         user.setEmail(userEdit.getEmail());
         user.setProfilePicture(userEdit.getProfilePicture());
         userRepository.save(user);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        if (userRepository.count() == 0) {
+            createFirstUser();
+        }
     }
 }

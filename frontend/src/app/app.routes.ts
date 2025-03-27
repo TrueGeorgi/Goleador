@@ -16,10 +16,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { EditClubComponent } from './pages/edit-club/edit-club.component';
+import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     {path: '', component: IndexComponent},
     {path: 'training', component: TrainingComponent, canActivate: [AuthGuard]},
+    { path: 'admin-panel', component: AdminPanelComponent, canActivate: [AdminGuard] },
     {path: 'team-view', component: TeamViewComponent, canActivate: [AuthGuard]},
     {path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
     {path: 'player-profile', component: PlayerProfileComponent, canActivate: [AuthGuard]},

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ClubData } from '../dtos/ClubData';
 import { PlayerData } from '../dtos/PlayerData';
 import { ClubEdit } from '../dtos/ClubEdit';
+import { RankedClub } from '../dtos/RankedClub';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,22 @@ export class ClubService {
     return this.http.post<void>(`${this.apiUrl}/${clubId}`, clubdata)
   }
 
+  getEternalRanking(): Observable<RankedClub[]> {
+    return this.http.get<RankedClub[]>(`${this.apiUrl}/eternal-ranking`);
+  }
+
   getClubPosition(clubId: string): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/club-position`, {
       params: {clubId: clubId}
     })
+  }
+
+  increaseFinances(clubId: string, amount: string): Observable<string> {
+    let body = {
+      clubId: clubId,
+      amount: amount
+    }
+    return this.http.post<string>(`${this.apiUrl}/increase-finances`, body);
   }
 
   setClubData(data: ClubData) {

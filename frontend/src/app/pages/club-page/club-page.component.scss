@@ -161,6 +161,14 @@ tbody tr:nth-child(odd):active {
     padding: 20px;
 }
 
+.no-game {
+    font-size: 45px;
+    color: rgb(0, 100, 0);
+    font-weight: bold;
+    background-color: rgb(176, 221, 176);
+    width: 360px;
+}
+
 // Logo
 
 .logo-box {
@@ -201,7 +209,6 @@ tbody tr:nth-child(odd):active {
     object-fit: cover;
     border: 3px solid darkgreen;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
 }
 
 .manager-info {
@@ -337,6 +344,10 @@ tbody tr:nth-child(odd):active {
 .finances-view {
     background: linear-gradient(120deg, #388E3C, #1B5E20);
     font-size: 20px;
+}
+
+.admin {
+    background: linear-gradient(120deg, #363631, #1b1916) !important;
 }
 
  // Table 

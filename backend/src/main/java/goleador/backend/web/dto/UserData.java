@@ -1,6 +1,7 @@
 package goleador.backend.web.dto;
 
 import goleador.backend.domain.club.model.Club;
+import goleador.backend.domain.user.model.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +20,5 @@ public class UserData {
     private String email;
     private UUID clubId;
     private String profilePicture;
+    private UserRole userRole;
 }

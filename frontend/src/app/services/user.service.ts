@@ -17,6 +17,10 @@ export class UserService {
       return this.http.get<UserData>(`${this.apiUrl}/${username}`)
     }
 
+    getUserRole(username: string): Observable<string> {
+      return this.http.get<string>(`${this.apiUrl}/user-role/${username}`)
+    }
+
     updateUser(username: string, userData: UserEdit): Observable<void> {
       return this.http.post<void>(`${this.apiUrl}/${username}`, userData);
     }

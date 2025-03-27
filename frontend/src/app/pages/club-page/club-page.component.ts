@@ -13,6 +13,7 @@ import { CapitalizePipe } from "../../pipes/capitalize.pipe";
 import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
 import { MatchService } from '../../services/match.service';
 import { GameData } from '../../dtos/GameData';
+import { DefaultLogo } from '../../enums/DefaultLogos';
 
 @Component({
   selector: 'app-club-page',
@@ -22,6 +23,9 @@ import { GameData } from '../../dtos/GameData';
 })
 export class ClubPageComponent implements OnInit {
 
+  defaultClubLogo: string = DefaultLogo.club;
+  defaultUserPic: string = DefaultLogo.user;
+
   clubData: ClubData | null = null;
   position: string = '';
 
@@ -29,6 +33,7 @@ export class ClubPageComponent implements OnInit {
   topFiveGoalscoreres: PlayerData[] = [];
 
   userData: UserData | null = null;
+  isAdmin: boolean = false;
 
   lastGame: GameData | null = null;
   numberOfGames: string = '';
@@ -93,6 +98,9 @@ export class ClubPageComponent implements OnInit {
     this.userService.getUserData(username).subscribe({
       next: (data) => {
         this.userData = data;
+        if(this.userData.userRole === "ADMIN") {
+          this.isAdmin = true;
+        }
         console.log(data);
         
       },

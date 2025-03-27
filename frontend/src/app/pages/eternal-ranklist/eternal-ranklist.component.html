@@ -10,23 +10,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Jose Mourinho</td>
-                <td>FC Bravo</td>
-                <td>1500</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jane Smith</td>
-                <td>FC Ruse</td>
-                <td>1450</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Mike Johnson</td>
-                <td>We Win</td>
-                <td>1400</td>
+            <tr *ngFor="let team of eternalRanking; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{team.managerFirstName}} {{team.managerLastName}}</td>
+                <td>{{team.clubName}}</td>
+                <td>{{team.points}}</td>
             </tr>
         </tbody>
     </table>

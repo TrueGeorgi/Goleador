@@ -5,6 +5,7 @@ import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.game.model.Game;
 import goleador.backend.domain.player.model.Player;
 import goleador.backend.web.dto.ClubData;
+import goleador.backend.web.dto.RankingRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -23,6 +24,15 @@ public class ClubMapper {
                 .awayGamesIds(club.getAwayGames().stream().map(Game::getId).collect(Collectors.toList()))
                 .points(club.getPoints())
                 .finances(club.getFinances())
+                .build();
+    }
+
+    public RankingRequest toRankingRequest(Club club) {
+        return RankingRequest.builder()
+                .managerFirstName(club.getManager().getFirstName())
+                .managerLastName(club.getManager().getLastName())
+                .clubName(club.getName())
+                .points(club.getPoints())
                 .build();
     }
 }

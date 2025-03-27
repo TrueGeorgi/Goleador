@@ -5,4 +5,5 @@ export interface UserData {
     email: string;
     clubId: string;
     profilePicture: string;
+    userRole: string;
 }

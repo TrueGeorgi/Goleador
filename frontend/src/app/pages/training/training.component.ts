@@ -7,6 +7,8 @@ import { PlayerService } from '../../services/player.service';
 import { ClubService } from '../../services/club.service';
 import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
 import { Router } from '@angular/router';
+import { TrainingService } from '../../services/training.service';
+import { CreateTraining } from '../../dtos/CreateTraining';
 
 @Component({
   selector: 'app-training',
@@ -22,19 +24,25 @@ export class TrainingComponent {
 
   finances: number = 0;
 
+  clubId: string = '';
+
+  trainingCost: number = 0;
+
   constructor(
     private playerService: PlayerService,
     private clubService: ClubService,
+    private trainingService: TrainingService,
     private router: Router
   ){}
 
   ngOnInit() {
-    const clubId = sessionStorage.getItem('clubId');
+    const clubIdSession = sessionStorage.getItem('clubId');
     const playerToTrain = this.playerService.getPlayerToTrain();
 
-    if(clubId) {
-      this.getPlayersData(clubId);
-      this.getClubFinances(clubId);
+    if(clubIdSession) {
+      this.getPlayersData(clubIdSession);
+      this.getClubFinances(clubIdSession);
+      this.clubId = clubIdSession;
     }
 
     if(playerToTrain !== null) {
@@ -45,6 +53,7 @@ export class TrainingComponent {
 
   onSelectionChange(event: any) {
     console.log(this.selectedValue);
+    this.getTrainingCost();
     
   }
 
@@ -52,15 +61,31 @@ export class TrainingComponent {
     this.playerService.getUserClubsPlayers(clubId).subscribe({
       next: (data) => {
         this.players = data;
-        console.log(this.players);
         if (this.selectedValue) {
           this.selectedValue = this.players.find(player => player.id === this.selectedValue?.id);
+          this.getTrainingCost();
         }
       },
       error: (error) => {
         console.error('Error fetching club data:', error);
       }
     });
+  }
+
+  getTrainingCost() {
+    if(this.selectedValue) {
+      this.trainingService.getTrainingCost(this.selectedValue.skill).subscribe({
+        next: (data) => {
+          console.log(data);
+          
+          this.trainingCost = Math.floor(Number(data));
+        },
+        error: (error) => {
+          console.error('Error fetching club training cost:', error);
+        }
+      })
+    }
+   
   }
 
   getClubFinances(clubId: string) {
@@ -78,4 +103,20 @@ export class TrainingComponent {
     this.router.navigate([path]);
   }
 
+  trainPlayer() {
+    if (this.trainingCost > this.finances) {
+      alert('Not enough cash')
+    } else {
+      if(this.selectedValue) {
+        let createTraining: CreateTraining = {oldSkillLevel: this.selectedValue?.skill, playerId: this.selectedValue?.id}
+        this.trainingService.createTraining(createTraining).subscribe({
+          next: () => {
+            this.getPlayersData(this.clubId)
+            this.getClubFinances(this.clubId);
+          },
+          error: (err) => console.error('Training request failed:', err)
+        });
+      }
+    }
+  }
 }

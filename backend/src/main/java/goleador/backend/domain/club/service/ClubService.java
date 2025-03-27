@@ -6,7 +6,6 @@ import goleador.backend.domain.player.service.PlayerService;
 import goleador.backend.domain.user.model.User;
 import goleador.backend.web.dto.ClubEdit;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -33,16 +32,14 @@ public class ClubService {
     }
 
     private Club initializeClub(User user) {
-       Club club = Club.builder()
-                .name(user.getUsername() + "'s Club")
-                .createdOn(LocalDate.now())
-                .points(0)
-                .manager(user)
-                .finances(BigDecimal.valueOf(100000))
-                .build();
 
-
-       return club;
+        return Club.builder()
+                 .name(user.getUsername() + "'s Club")
+                 .createdOn(LocalDate.now())
+                 .points(0)
+                 .manager(user)
+                 .finances(BigDecimal.valueOf(100000))
+                 .build();
     }
 
     public Club getClubById(UUID id) {
@@ -91,5 +88,41 @@ public class ClubService {
 
         return -1; // TODO - handle error here
 
+    }
+
+    public void deductPayment(BigDecimal price, UUID clubId) {
+        Optional<Club> byId = clubRepository.findById(clubId);
+        if (byId.isEmpty()) {
+            throw new RuntimeException("Club not found"); // TODO - handle error
+        }
+        Club club = byId.get();
+        club.setFinances(club.getFinances().subtract(price));
+        clubRepository.save(club);
+    }
+
+    public BigDecimal increaseFinances(BigDecimal amount, UUID clubId) {
+        Optional<Club> byId = clubRepository.findById(clubId);
+        if (byId.isEmpty()) {
+            throw new RuntimeException("Club not found"); // TODO - handle error
+        }
+        Club club = byId.get();
+        club.setFinances(club.getFinances().add(amount));
+        clubRepository.save(club);
+        return club.getFinances();
+    }
+
+    public void setPoints(Club winner, Club looser) {
+        winner.setPoints(winner.getPoints() + 3);
+        int looserPoints = looser.getPoints();
+        if (looserPoints < 3) {
+            looser.setPoints(0);
+        } else {
+            looser.setPoints(looserPoints - 3);
+        }
+    }
+
+    public void setDrawPoints(Club homeClub, Club awayClub) {
+        homeClub.setPoints(homeClub.getPoints() + 1);
+        awayClub.setPoints(awayClub.getPoints() + 1);
     }
 }

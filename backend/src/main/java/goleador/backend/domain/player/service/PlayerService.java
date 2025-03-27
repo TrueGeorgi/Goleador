@@ -3,6 +3,7 @@ package goleador.backend.domain.player.service;
 import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.player.model.*;
 import goleador.backend.domain.player.repository.PlayerRepository;
+import goleador.backend.domain.training.client.dto.TrainingResponse;
 import goleador.backend.web.dto.PlayerData;
 import goleador.backend.web.mapper.PlayerMapper;
 import lombok.RequiredArgsConstructor;
@@ -155,5 +156,40 @@ public class PlayerService {
         List<Player> players = allByPosition.get();
 
         return players.stream().mapToInt(Player::getSkill).sum();
+    }
+
+    public void updatePlayerSkill(TrainingResponse trainingResponse) {
+        UUID playerUuid = UUID.fromString(trainingResponse.getPlayerID());
+        Optional<Player> playerById = playerRepository.findById(playerUuid);
+        if (playerById.isEmpty()) {
+            throw new RuntimeException(); // TODO - handle error
+        }
+        Player player = playerById.get();
+        player.setSkill(trainingResponse.getNewSkillValue());
+        playerRepository.save(player);
+
+    }
+
+    public Club getPlayersClub(UUID playerId) {
+        Optional<Player> byId = playerRepository.findById(playerId);
+
+        if (byId.isEmpty()) {
+            throw new RuntimeException(); // TODO - handle error
+        }
+
+        return byId.get().getClub();
+    }
+
+    public void selectGoalScorer(UUID id) {
+        Optional<List<Player>> allByClubIdOrderByPosition = playerRepository.findAllByClubIdOrderByPosition(id);
+
+        if (allByClubIdOrderByPosition.isEmpty()) {
+            throw new RuntimeException(); // TODO- handle error
+        }
+
+        List<Player> players = allByClubIdOrderByPosition.get();
+        int playerPositionInList = rand.nextInt(players.size());
+        Player player = players.get(playerPositionInList);
+        player.setGoals(player.getGoals() + 1);
     }
 }

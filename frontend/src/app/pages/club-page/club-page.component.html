@@ -20,24 +20,27 @@
             </div>
             <button class="view-squad-btn" (click)="navigateTo('team-view')">View Squad</button>
         </div>
-        <div class="grid-box last-match-box">
+        <div class="grid-box last-match-box" *ngIf="lastGame">
             <div class="last-match-text">Last Result</div>
             <div class="teams-box">
-                <div class="team">{{lastGame?.homeTeamName}}</div>
-                <div class="team">{{lastGame?.awayTeamName}}</div>
+                <div class="team">{{lastGame.homeTeamName}}</div>
+                <div class="team">{{lastGame.awayTeamName}}</div>
             </div>
             <div class="result">
-                <div class="score">{{lastGame?.homeTeamGoals}}</div>
+                <div class="score">{{lastGame.homeTeamGoals}}</div>
                 <div>:</div>
-                <div class="score">{{lastGame?.awayTeamGoals}}</div>
+                <div class="score">{{lastGame.awayTeamGoals}}</div>
             </div>
         </div>
+        <div *ngIf="!lastGame" class="no-game last-match-box">
+            <div>No Games</div>
+        </div>
         <div class="grid-box logo-box">
-            <img [src]="clubData?.logo" alt="Team Logo" class="logo">
+            <img [src]="clubData?.logo ?? defaultClubLogo" alt="Team Logo" class="logo">
             <button class="edit-btn" (click)="editClub()">Edit club</button>
         </div>
         <div class="grid-box manager">
-            <img [src]="userData?.profilePicture" alt="Manager Photo" class="manager-photo">
+            <img [src]="userData?.profilePicture ?? defaultUserPic" alt="Manager Photo" class="manager-photo">
             <div class="manager-info">
                 <h2 class="manager-name" (click)="navigateTo('manager-profile')">{{userData?.username}}</h2>
                 <p class="manager-stats">
@@ -51,6 +54,7 @@
             <p class="eternal-rank">Eternal Position: <span class="position" (click)="navigateTo('eternal-ranklist')">{{position}}</span></p>
         </div>        
         <div class="grid-box dashboard">
+            <div *ngIf="isAdmin" class="training-btn admin" (click)="navigateTo('admin-panel')">Admin panel</div>
             <div class="training-btn" (click)="navigateTo('training')">Training</div>
             <div class="finances-view" (click)="navigateTo('manager-profile')">{{clubData?.finances | currencyFormat}}</div>
             <div class="home-btn" (click)="navigateTo('match-window')">Play a game</div>

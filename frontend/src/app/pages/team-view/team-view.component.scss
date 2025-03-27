@@ -8,8 +8,8 @@
 
 .team-view-container {
     display: grid;
-    grid-template-columns: 800px 400px;
-    grid-auto-rows: minmax(150px, 200px);
+    grid-template-columns: 800px;
+    // grid-auto-rows: minmax(150px, 200px);
     row-gap: 25px;
     column-gap: 100px;
     padding: 13px 15px;

@@ -4,24 +4,31 @@ import { UserData } from '../../dtos/UserData';
 import { UserService } from '../../services/user.service';
 import { ClubService } from '../../services/club.service';
 import { ClubData } from '../../dtos/ClubData';
+import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
+import { DefaultLogo } from '../../enums/DefaultLogos';
 
 @Component({
   selector: 'app-manager-profile',
-  imports: [],
+  imports: [CurrencyFormatPipe],
   templateUrl: './manager-profile.component.html',
   styleUrl: './manager-profile.component.scss'
 })
 export class ManagerProfileComponent {
+  
+    defaultClubLogo: string = DefaultLogo.club;
+    defaultUserPic: string = DefaultLogo.user;
 
    userData: UserData | null = null;
 
    clubData: ClubData | null = null;
    position: string = '';
 
+   clubId: string = '';
+
   constructor(
     private router: Router,
     private userService: UserService,
-    private clubService: ClubService,
+    private clubService: ClubService
   ){
     
   }
@@ -33,6 +40,7 @@ export class ManagerProfileComponent {
     if(clubId) {
       this.getClubData(clubId);
       this.getClubPosition(clubId);
+      this.clubId = clubId;
     } else {
       console.log('club id did not work');
     }
@@ -79,6 +87,19 @@ export class ManagerProfileComponent {
         console.error('Error fetching position data:', error);
       }
     })
+  }
+
+  increaseFinances(amount: number) {
+
+    this.clubService.increaseFinances(this.clubId, amount.toString()).subscribe({
+      next: (data) => {
+        this.getClubData(this.clubId);
+      },
+      error: (error) => {
+        console.log("Something was wrong with the finance increase ", error);
+        
+      }
+    });
   }
 
   navigateTo(path: string) {

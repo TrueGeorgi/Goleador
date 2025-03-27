@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
 export class TeamViewComponent {
 
   clubPlayersData: PlayerData[] | null = null;
-  topThreeGoalscoreres: PlayerData[] = [];
-  topThreeAppearances: PlayerData[] = [];
 
   currentSortedHeader = '';
   isAscSorted = false;
@@ -37,19 +35,11 @@ export class TeamViewComponent {
     this.playerService.getUserClubsPlayers(clubId).subscribe({
       next: (data) => {
         this.clubPlayersData = data;
-        this.getTableData();
       },
       error: (error) => {
         console.error('Error fetching club data:', error);
       }
     });
-  }
-
-  getTableData() {
-    if(this.clubPlayersData) {
-      this.topThreeGoalscoreres = this.clubPlayersData.sort((a, b) => b.goals - a.goals).slice(0, 3);
-      this.topThreeAppearances = this.clubPlayersData.sort((a, b) => b.appearances - a.appearances).slice(0, 3);
-    }
   }
 
   navigateTo(page: string, player: PlayerData) {
@@ -116,6 +106,18 @@ export class TeamViewComponent {
     } else {
       this.clubPlayersData?.sort((a, b) => a.nationality.localeCompare(b.nationality));
       this.currentSortedHeader = 'country';
+      this.isAscSorted = true;
+    }
+  }
+
+  sortByGoals() {
+
+    if(this.isAscSorted && this.currentSortedHeader === 'goal') {
+      this.clubPlayersData?.sort((a, b) => b.goals - a.goals);
+      this.isAscSorted = false;
+    } else {
+      this.clubPlayersData?.sort((a, b) => a.goals - b.goals);
+      this.currentSortedHeader = 'goal';
       this.isAscSorted = true;
     }
   }

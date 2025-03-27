@@ -1,7 +1,7 @@
 <div class="manager-main-container">
     <div class="manager-grid-container">
         <div class="grid-box details-view">
-            <img src="https://www.aljazeera.com/wp-content/uploads/2024/01/2024-01-16T085624Z_603053148_RC2811APCP3T_RTRMADP_3_SOCCER-ITALY-MOURINHO-1705409377.jpg?resize=1920%2C1440" alt="Manager Photo" class="photo">
+            <img [src]="userData?.profilePicture ?? defaultUserPic" alt="Manager Photo" class="photo">
             <div class="info">
                 <p class="details">First name: <span>{{userData?.firstName}}</span></p>
                 <p class="details">Last name: <span>{{userData?.lastName}}</span></p>
@@ -10,7 +10,7 @@
             <button class="edit-btn" (click)="navigateTo('edit-profile')">Edit profile</button>
         </div> 
         <div class="grid-box details-view">
-            <img src="https://cdn.vectorstock.com/i/1000v/33/24/football-logo-design-template-vector-30733324.jpg" alt="Manager Photo" class="photo">
+            <img [src]="clubData?.logo ?? defaultClubLogo" alt="Manager Photo" class="photo">
             <div class="info">
                 <p class="details">Club name: <span>{{clubData?.clubName}}</span></p>
                 <p class="details">Eternal rank: <span (click)="navigateTo('eternal-ranklist')" class="rank-number">{{position}}</span></p>
@@ -19,18 +19,17 @@
         </div>
         <div class="grid-box finances-view">
             <p class="header">Current Finances</p>
-            <p class="amount">100,000 EUR</p>
+            <p class="amount">{{clubData?.finances | currencyFormat}}</p>
             <div class="finances-btns-box">
-                <button>+ 500 EUR</button>
-                <button>+ 1,000 EUR</button>
-                <button>+ 10,000 EUR</button>
+                <button (click)="increaseFinances(500)">+ 500 €</button>
+                <button (click)="increaseFinances(1000)">+ 1,000 €</button>
+                <button (click)="increaseFinances(10000)">+ 10,000 €</button>
             </div>
         </div>
         <div class="grid-box action-btns-box">
-            <button>Home</button>
-            <button>Club page</button>
-            <button>Team view</button>
-            <button>Play a game</button>
+            <button (click)="navigateTo('club-page')">Club page</button>
+            <button (click)="navigateTo('team-view')">Team view</button>
+            <button (click)="navigateTo('match-window')">Play a game</button>
         </div>
     </div>
 </div>

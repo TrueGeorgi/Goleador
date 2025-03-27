@@ -1,6 +1,7 @@
 package goleador.backend.domain.game.service;
 
 import goleador.backend.domain.club.model.Club;
+import goleador.backend.domain.club.repository.ClubRepository;
 import goleador.backend.domain.club.service.ClubService;
 import goleador.backend.domain.game.model.AttackingClub;
 import goleador.backend.domain.game.model.Game;
@@ -28,6 +29,7 @@ public class GameService {
     private final PlayerService playerService;
     private final Random random;
     private final GameMapper gameMapper;
+    private final ClubRepository clubRepository;
 
     private int homeGkPower;
     private int homeDefPower;
@@ -120,6 +122,15 @@ public class GameService {
         }
 
         game.setResult(gameResult);
+
+        if (gameResult == Result.TEAM_A) {
+            clubService.setPoints(homeClub, awayClub);
+        } else if (gameResult == Result.TEAM_B) {
+            clubService.setPoints(awayClub, homeClub);
+        } else {
+            clubService.setDrawPoints(homeClub, awayClub);
+        }
+
         game.setGoalsTeamA(homeGoals);
         game.setGoalsTeamB(awayGoals);
         gameRepository.save(game);
@@ -161,8 +172,14 @@ public class GameService {
         }
 
         switch (controllingClub.getSide()) {
-            case "Home" -> homeGoals++;
-            case "Away" -> awayGoals++;
+            case "Home" -> {
+                homeGoals++;
+                this.playerService.selectGoalScorer(homeClub.getId());
+            }
+            case "Away" -> {
+                awayGoals++;
+                this.playerService.selectGoalScorer(awayClub.getId());
+            }
         }
 
         return Goal.builder()

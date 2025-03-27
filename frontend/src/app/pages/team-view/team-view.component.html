@@ -9,6 +9,7 @@
                         <th (click)="sortByPosition()" class="sortable-table-header" [ngClass]="{'selected-header' : currentSortedHeader === 'position'}">Position</th>
                         <th (click)="sortBySkill()" class="sortable-table-header" [ngClass]="{'selected-header' : currentSortedHeader === 'skill'}">Skill</th>
                         <th (click)="sortByCountry()" class="sortable-table-header" [ngClass]="{'selected-header' : currentSortedHeader === 'country'}">Country</th>
+                        <th (click)="sortByGoals()" class="sortable-table-header" [ngClass]="{'selected-header' : currentSortedHeader === 'goal'}">Goals</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,40 +19,7 @@
                         <td>{{player.position}}</td>
                         <td>{{player.skill}}</td>
                         <td>{{player.nationality | capitalize}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="top-scorers">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Last Name</th>
-                        <th>Goals Scored</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let player of topThreeGoalscoreres" (click)="navigateTo('player-profile', player)">
-                        <td>{{player.firstName | capitalize}} {{player.lastName | capitalize}}</td>
                         <td>{{player.goals}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="appearances">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Last Name</th>
-                        <th>Appearances</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let player of topThreeAppearances" (click)="navigateTo('player-profile', player)">
-                        <td>{{player.firstName | capitalize}} {{player.lastName | capitalize}}</td>
-                        <td>{{player.appearances}}</td>
                     </tr>
                 </tbody>
             </table>

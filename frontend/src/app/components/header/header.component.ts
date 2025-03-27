@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { EventService } from '../../services/event.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,12 @@ export class HeaderComponent {
 
   isLogged: boolean = false;
 
-  constructor(private router: Router, protected authService: AuthServiceService, private eventService: EventService) {}
+  constructor(
+    private router: Router, 
+    protected authService: AuthServiceService, 
+    private eventService: EventService, 
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.eventService.dataEmitter.subscribe(data => {

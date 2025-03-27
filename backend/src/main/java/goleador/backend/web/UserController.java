@@ -2,6 +2,7 @@ package goleador.backend.web;
 
 import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.user.model.User;
+import goleador.backend.domain.user.model.UserRole;
 import goleador.backend.domain.user.service.UserService;
 import goleador.backend.web.dto.ClubData;
 import goleador.backend.web.dto.UserData;
@@ -29,6 +30,12 @@ public class UserController {
         User user = userService.getUserByUsername(username);
         UserData userData = userMapper.toUserData(user);
         return ResponseEntity.ok(userData);
+    }
+
+    @GetMapping("/user-role/{username}")
+    public ResponseEntity<UserRole> getUserRole(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+        return ResponseEntity.ok(user.getRole());
     }
 
     @PostMapping("/{username}")

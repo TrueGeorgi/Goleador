@@ -2,16 +2,14 @@ package goleador.backend.web;
 
 import goleador.backend.domain.club.model.Club;
 import goleador.backend.domain.club.service.ClubService;
-import goleador.backend.web.dto.ClubData;
-import goleador.backend.web.dto.ClubEdit;
-import goleador.backend.web.dto.UserData;
-import goleador.backend.web.dto.UserEdit;
+import goleador.backend.web.dto.*;
 import goleador.backend.web.mapper.ClubMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,7 +29,7 @@ public class ClubController {
     }
 
     @PostMapping("/{clubId}")
-    public ResponseEntity<UserData> updateUser(@PathVariable String clubId, @RequestBody ClubEdit clubEdit) {
+    public ResponseEntity<Void> updateUser(@PathVariable String clubId, @RequestBody ClubEdit clubEdit) {
         UUID uuid = UUID.fromString(clubId);
         clubService.editClub(uuid, clubEdit);
         return ResponseEntity.noContent().build();
@@ -42,5 +40,23 @@ public class ClubController {
         UUID uuid = UUID.fromString(clubId);
         int position = clubService.getClubPosition(uuid);
         return ResponseEntity.ok(new BigDecimal(position));
+    }
+
+    @PostMapping("/increase-finances")
+    public ResponseEntity<BigDecimal> getIncreaseFinances(@RequestBody IncreaseFinances increaseFinances) {
+        UUID uuid = UUID.fromString(increaseFinances.getClubId());
+        BigDecimal bigDecimal = clubService.increaseFinances(increaseFinances.getAmount(), uuid);
+        return ResponseEntity.ok(bigDecimal);
+    }
+
+    @GetMapping("/eternal-ranking")
+    public ResponseEntity<List<RankingRequest>> getEternalRanking() {
+        List<Club> clubs = clubService.getAllClubsByPointsDesc();
+
+        List<RankingRequest> rankingRequests = clubs.stream()
+                .map(clubMapper::toRankingRequest)
+                .toList();
+
+        return ResponseEntity.ok(rankingRequests);
     }
 }
