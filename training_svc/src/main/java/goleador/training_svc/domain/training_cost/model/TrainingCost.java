@@ -1,4 +1,4 @@
-package goleador.backend.domain.training.model;
+package goleador.training_svc.domain.training_cost.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +19,13 @@ public class TrainingCost {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    String currentSkill;
+    @Column(name = "skill_level", nullable = false)
+    private int skillLevel;
 
-    BigDecimal cost;
+    @Column(nullable = false)
+    private BigDecimal cost;
+
+    @Column(nullable = false)
+    private boolean active;
+
 }
