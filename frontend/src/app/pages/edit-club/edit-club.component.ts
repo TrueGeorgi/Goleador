@@ -4,16 +4,20 @@ import { Router } from '@angular/router';
 import { ClubService } from '../../services/club.service';
 import { ClubEdit } from '../../dtos/ClubEdit';
 import { ClubMapperService } from '../../mappers/club-mapper.service';
+import { PopUpComponent } from "../../components/pop-up/pop-up.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-club',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PopUpComponent, CommonModule],
   templateUrl: './edit-club.component.html',
   styleUrl: './edit-club.component.scss'
 })
 export class EditClubComponent {
   clubForm: FormGroup;
   clubId: string = '';
+
+  showSuccessMessage: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -70,7 +74,11 @@ export class EditClubComponent {
     console.log(2);
     this.clubService.editClubData(this.clubId, club).subscribe({
       next: () => {
-        this.router.navigate(['/club-page'])
+        this.showSuccessMessage = true
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+          this.router.navigate(['/club-page'])
+        }, 500);
       },
       error: (error) => {
         console.error("Error updating user:", error);

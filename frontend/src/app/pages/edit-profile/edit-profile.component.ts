@@ -5,10 +5,12 @@ import { UserData } from '../../dtos/UserData';
 import { UserEdit } from '../../dtos/UserEdit';
 import { UserMapperService } from '../../mappers/user-mapper.service';
 import { Router } from '@angular/router';
+import { PopUpComponent } from "../../components/pop-up/pop-up.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PopUpComponent, CommonModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss'
 })
@@ -16,6 +18,8 @@ export class EditProfileComponent {
   profileForm: FormGroup;
 
   username: string = '';
+
+  showSuccessMessage: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -77,7 +81,11 @@ export class EditProfileComponent {
     console.log(2);
     this.userService.updateUser(this.username, user).subscribe({
       next: () => {
-        this.router.navigate(['/club-page'])
+        this.showSuccessMessage = true
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+          this.router.navigate(['/club-page'])
+        }, 500);
       },
       error: (error) => {
         console.error("Error updating user:", error);

@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { UserEdit } from '../../dtos/UserEdit';
 import { UserMapperService } from '../../mappers/user-mapper.service';
 import { Router } from '@angular/router';
+import { PopUpComponent } from "../../components/pop-up/pop-up.component";
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, PopUpComponent],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.scss'
 })
@@ -20,6 +21,7 @@ export class AdminPanelComponent {
   username: string = '';
 
   showSuccessMessage = false;
+  showConfirmDelete = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -73,7 +75,6 @@ export class AdminPanelComponent {
         setTimeout(() => {
           this.showSuccessMessage = false;
         }, 500);
-        // this.router.navigate(['/club-page'])
       },
       error: (error) => {
         console.error("Error updating user:", error);
@@ -103,5 +104,17 @@ export class AdminPanelComponent {
         console.log(error);
       }
     });
+  }
+
+  confirmDelete() {
+    this.showConfirmDelete = true;
+  }
+
+  onCancel() {
+    this.showConfirmDelete = false;
+  }
+
+  onConfirm() {
+    
   }
 }

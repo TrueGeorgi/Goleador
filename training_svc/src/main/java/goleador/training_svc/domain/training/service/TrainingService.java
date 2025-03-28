@@ -17,7 +17,9 @@ public class TrainingService {
     private final TrainingCostService trainingCostService;
 
     public Training createTraining(CreateTraining createTraining) {
+
         BigDecimal cost = trainingCostService.getTrainingPrice(createTraining.getOldSkillLevel());
+
         Training training =  Training.builder()
                 .oldSkillLevel(createTraining.getOldSkillLevel())
                 .newSkillLevel(createTraining.getOldSkillLevel() + 1)

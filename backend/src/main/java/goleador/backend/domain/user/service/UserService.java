@@ -137,4 +137,14 @@ public class UserService implements CommandLineRunner {
             createFirstUser();
         }
     }
+
+    public void deleteUser(String username) {
+        Optional<User> byUsername = userRepository.findByUsername(username);
+
+        if (byUsername.isEmpty()) {
+            throw new RuntimeException("User with this username not found");
+        }
+
+
+    }
 }

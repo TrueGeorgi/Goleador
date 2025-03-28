@@ -23,14 +23,23 @@
   
         <label>Profile Pic</label>
         <input type="url" formControlName="profilePicture" placeholder="Enter url">
-        
-        <button type="submit" [disabled]="profileForm.invalid">Edit</button>
+
+        <button type="submit" class="edit-btn" [disabled]="profileForm.invalid">Edit</button>
       </form>
+      <div class="buttons-container">
+        <button class="delete-btn" (click)="confirmDelete()">Delete {{userSearched.get('username')?.value}}'s Profile</button>
+      </div>
     </div>
 </div>
 
-<div *ngIf="showSuccessMessage" class="success-popup">
-  <div class="success-circle">
-    ✓
+<div class="modal-overlay" *ngIf="showConfirmDelete">
+  <div class="modal-content">
+    <h3>Are you sure you want to delete this user?</h3>
+    <div class="modal-buttons">
+      <button (click)="onCancel()">Cancel</button>
+      <button (click)="onConfirm()">Delete</button>
+    </div>
   </div>
 </div>
+
+<app-pop-up *ngIf="showSuccessMessage"></app-pop-up>

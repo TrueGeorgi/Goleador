@@ -49,6 +49,7 @@ export class MatchWindowComponent {
         })
       },
       error: (error) => {
+        alert('There are no other clubs. You are the BEST and the WORST team in the game.')
         console.error('Error fetching club data:', error);
       }
     });

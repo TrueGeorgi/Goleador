@@ -26,6 +26,4 @@ public class PlayerController {
         List<PlayerData> playerDataList = this.playerService.getTeamsPlayers(teamUuid);
         return ResponseEntity.ok(playerDataList);
     }
-
-    // TODO - get top 5 goalscorers from a club
 }

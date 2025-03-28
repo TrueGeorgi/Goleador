@@ -13,7 +13,7 @@
     <div class="training">
         <div>{{selectedValue?.firstName}} {{selectedValue?.lastName}}</div>
         <div>Current skill : {{selectedValue?.skill}}</div>
-        <div>It will cost {{trainingCost | currency}} to increase with +1</div>
+        <div>It will cost {{trainingCost | currencyFormat}} to increase with +1</div>
         <button *ngIf="selectedValue !== undefined" (click)="trainPlayer()" >Pay and increase</button>
     </div>
 </div>
