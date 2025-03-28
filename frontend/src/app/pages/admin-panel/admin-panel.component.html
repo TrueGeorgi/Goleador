@@ -1,21 +1,36 @@
 <div class="main-container">
-    <div class="edit-profile-container">
-        <h2>Edit User</h2>
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-          
-          <label>First Name</label>
-          <input type="text" formControlName="firstName" placeholder="Enter first name">
-          
-          <label>Last Name</label>
-          <input type="text" formControlName="lastName" placeholder="Enter last name">
-          
-          <label>Email</label>
-          <input type="email" formControlName="email" placeholder="Enter email">
-    
-          <label>Profile Pic</label>
-          <input type="url" formControlName="profilePicture" placeholder="Enter url">
-          
-          <button type="submit" [disabled]="profileForm.invalid">Save</button>
-        </form>
-      </div>
+  <div *ngIf="!userFound" class="form-container">
+    <h2>Find user</h2>
+    <form [formGroup]="userSearched" (ngSubmit)="onSubmitSearchForm()">
+        
+      <input type="text" formControlName="username" placeholder="Enter username">
+      
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div *ngIf="userFound" class="form-container">
+      <h2>Edit {{userSearched.get('username')?.value}}</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmitEditForm()">
+        
+        <label>First Name</label>
+        <input type="text" formControlName="firstName" placeholder="Enter first name">
+        
+        <label>Last Name</label>
+        <input type="text" formControlName="lastName" placeholder="Enter last name">
+        
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter email">
+  
+        <label>Profile Pic</label>
+        <input type="url" formControlName="profilePicture" placeholder="Enter url">
+        
+        <button type="submit" [disabled]="profileForm.invalid">Edit</button>
+      </form>
+    </div>
+</div>
+
+<div *ngIf="showSuccessMessage" class="success-popup">
+  <div class="success-circle">
+    ✓
+  </div>
 </div>

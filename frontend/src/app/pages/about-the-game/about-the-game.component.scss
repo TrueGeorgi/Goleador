@@ -1,0 +1,88 @@
+.main-container {
+    min-height: calc(100vh - 130px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    font-family: 'Arial', sans-serif;
+    background-color: #98b191;
+    color: #333;
+}
+
+.game-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #e2e2e2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Arial", sans-serif;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .game-title {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .info-card {
+    background: #ffffff;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  .info-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #0056b3;
+  }
+  
+  ul {
+    padding-left: 20px;
+  }
+  
+  li {
+    margin: 5px 0;
+  }
+  
+  .win {
+    color: green;
+  }
+  
+  .loss {
+    color: red;
+  }
+  
+  .draw {
+    color: orange;
+  }
+  
+  .final-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .play-btn {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .play-btn:hover {
+    background: #0056b3;
+  }
+  

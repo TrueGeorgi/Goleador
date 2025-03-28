@@ -1,12 +1,12 @@
 .main-container {
     min-height: calc(100vh - 110px);
-    background: url('https://amazinteriors.com/wp-content/uploads/2015/09/project-11.jpg') no-repeat center center/cover;
+    background: url('https://wallpapers.com/images/hd/simple-black-1920-x-1200-background-36dw63ypw2f0gsp5.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     flex-direction: column;
   }
   
-  .edit-profile-container {
+  .form-container {
       width: 600px;
       margin: auto;
       padding: 40px;
@@ -65,5 +65,35 @@
     
     button:disabled {
       background: #aaa;
+    }
+    
+    // pop up
+
+    .success-popup {
+      position: fixed;
+      top: 30%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 128, 0, 0.8);
+      padding: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      animation: fadeOut 2s ease-in-out;
+    }
+    
+    .success-circle {
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
     }
     
