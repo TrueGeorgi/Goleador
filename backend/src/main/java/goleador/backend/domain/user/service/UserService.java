@@ -101,7 +101,13 @@ public class UserService implements CommandLineRunner {
                 )
         );
 
-        User user = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+        Optional<User> byUsername = userRepository.findByUsername(loginRequest.getUsername());
+
+        if (byUsername.isEmpty()) {
+            throw new RuntimeException("Username not found");
+        }
+
+        User user = byUsername.get();
 
         if (user.getIsDeleted()) {
             throw new RuntimeException("User is deleted");
@@ -125,7 +131,13 @@ public class UserService implements CommandLineRunner {
     }
 
     public User getUserByUsername(String username) {
-        User user = this.userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
+        Optional<User> byUsername = this.userRepository.findByUsername(username);
+
+        if (byUsername.isEmpty()) {
+            throw new RuntimeException("Username not found");
+        }
+
+        User user = byUsername.get();
 
         if(user.getIsDeleted()) {
             throw new RuntimeException("User is deleted");
@@ -135,7 +147,14 @@ public class UserService implements CommandLineRunner {
     }
 
     public void editUser(String username, UserEdit userEdit) {
-        User user = userRepository.findByUsername(username).orElseThrow();
+        Optional<User> byUsername = userRepository.findByUsername(username);
+
+        if (byUsername.isEmpty()) {
+            throw new RuntimeException("Username not found");
+        }
+
+        User user = byUsername.get();
+
         user.setFirstName(userEdit.getFirstName());
         user.setLastName(userEdit.getLastName());
         user.setEmail(userEdit.getEmail());

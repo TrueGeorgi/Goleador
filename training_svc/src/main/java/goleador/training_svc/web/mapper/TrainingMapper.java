@@ -13,4 +13,5 @@ public class TrainingMapper {
                 .playerID(training.getPlayerId())
                 .build();
     }
+
 }

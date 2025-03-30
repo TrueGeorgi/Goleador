@@ -18,20 +18,13 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
+    private final Random rand;
 
-    private final Random rand = new Random();
-
-    public List<Player> create15Players(Club club) {
-
-        List<Player> players = new ArrayList<>();
-
+    public void create15Players(Club club) {
         for (int i = 0; i < 15; i++) {
             Player player = initializaPlayer(club);
             playerRepository.save(player);
-            players.add(player);
         }
-
-        return players;
     }
 
     private Player initializaPlayer(Club club) {
@@ -53,7 +46,7 @@ public class PlayerService {
                 .build();
     }
 
-    private Nationality pickRandomNationality() {
+    public Nationality pickRandomNationality() {
         int randomNum = rand.nextInt(Nationality.values().length);
         return Nationality.values()[randomNum];
     }
@@ -130,18 +123,30 @@ public class PlayerService {
         switch (position) {
             case GK -> {
                 Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.GK);
+                if (allByPosition.isEmpty()) {
+                    throw new RuntimeException("No players found for position: GK");
+                }
                 return positionStrength(allByPosition);
             }
             case DEF -> {
                 Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.DEF);
+                if (allByPosition.isEmpty()) {
+                    throw new RuntimeException("No players found for position: DEF");
+                }
                 return positionStrength(allByPosition);
             }
             case MID -> {
                 Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.MID);
+                if (allByPosition.isEmpty()) {
+                    throw new RuntimeException("No players found for position: MID");
+                }
                 return positionStrength(allByPosition);
             }
             case ATT -> {
                 Optional<List<Player>> allByPosition = playerRepository.findAllByPosition(Position.ATT);
+                if (allByPosition.isEmpty()) {
+                    throw new RuntimeException("No players found for position: ATT");
+                }
                 return positionStrength(allByPosition);
             }
             default -> throw new IllegalArgumentException("Invalid position");
@@ -174,7 +179,7 @@ public class PlayerService {
         Optional<Player> byId = playerRepository.findById(playerId);
 
         if (byId.isEmpty()) {
-            throw new RuntimeException(); // TODO - handle error
+            throw new RuntimeException();
         }
 
         return byId.get().getClub();
@@ -184,7 +189,7 @@ public class PlayerService {
         Optional<List<Player>> allByClubIdOrderByPosition = playerRepository.findAllByClubIdOrderByPosition(id);
 
         if (allByClubIdOrderByPosition.isEmpty()) {
-            throw new RuntimeException(); // TODO- handle error
+            throw new RuntimeException();
         }
 
         List<Player> players = allByClubIdOrderByPosition.get();

@@ -36,7 +36,7 @@ public class LogService {
     public List<LogData> getGameLogs(UUID gameUuid) {
         Optional<List<Log>> logs = this.logRepository.findAllByGameIdOrderByMinute(gameUuid);
         if (logs.isEmpty()) {
-            throw  new RuntimeException("No logs found for game uuid: " + gameUuid); // TODO - handle errors
+            throw  new RuntimeException("No logs found for game uuid: " + gameUuid);
         }
 
         return logs.get().stream().map(logMapper::toLogData).collect(Collectors.toList());

@@ -43,13 +43,17 @@ public class ClubService {
     }
 
     public Club getClubById(UUID id) {
-        return clubRepository.findById(id).orElse(null); // TODO handle error
+        Optional<Club> club = clubRepository.findById(id);
+        if (club.isEmpty()) {
+            throw new RuntimeException("Club not found");
+        }
+        return club.get();
     }
 
     public Club getRandomClub(UUID homeClubId) {
         List<Club> clubs = clubRepository.findAll();
         if (clubs.size() <= 1) {
-            throw new RuntimeException("Not enough clubs"); // TODO - handle error
+            throw new RuntimeException("Not enough clubs");
         }
 
         Club randomClub = clubs.get(random.nextInt(clubs.size()));
@@ -61,10 +65,10 @@ public class ClubService {
     }
 
     public void editClub(UUID clubId, ClubEdit clubEdit) {
-        Optional<Club> byId = clubRepository.findById(clubId); // TODO - handle error
+        Optional<Club> byId = clubRepository.findById(clubId);
 
         if (byId.isEmpty()) {
-            throw new RuntimeException("Club not found"); // TODO - handle error
+            throw new RuntimeException("Club not found");
         }
 
         Club club = byId.get();
@@ -86,14 +90,14 @@ public class ClubService {
             }
         }
 
-        return -1; // TODO - handle error here
+        return -1;
 
     }
 
     public void deductPayment(BigDecimal price, UUID clubId) {
         Optional<Club> byId = clubRepository.findById(clubId);
         if (byId.isEmpty()) {
-            throw new RuntimeException("Club not found"); // TODO - handle error
+            throw new RuntimeException("Club not found");
         }
         Club club = byId.get();
         club.setFinances(club.getFinances().subtract(price));
@@ -103,7 +107,7 @@ public class ClubService {
     public BigDecimal increaseFinances(BigDecimal amount, UUID clubId) {
         Optional<Club> byId = clubRepository.findById(clubId);
         if (byId.isEmpty()) {
-            throw new RuntimeException("Club not found"); // TODO - handle error
+            throw new RuntimeException("Club not found");
         }
         Club club = byId.get();
         club.setFinances(club.getFinances().add(amount));
@@ -125,4 +129,6 @@ public class ClubService {
         homeClub.setPoints(homeClub.getPoints() + 1);
         awayClub.setPoints(awayClub.getPoints() + 1);
     }
+
+
 }

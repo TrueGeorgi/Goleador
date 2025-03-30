@@ -29,8 +29,6 @@ public class GameService {
     private final LogService logService;
     private final PlayerService playerService;
     private final Random random;
-    private final GameMapper gameMapper;
-    private final ClubRepository clubRepository;
 
     private int homeGkPower;
     private int homeDefPower;
@@ -53,7 +51,7 @@ public class GameService {
         return game;
     }
 
-    private Game initializeGame(Club homeClub, Club awayClub) {
+    public Game initializeGame(Club homeClub, Club awayClub) {
 
         this.homeGkPower = playerService.calculatePower(homeClub.getId(), Position.GK);
         this.homeDefPower = playerService.calculatePower(homeClub.getId(), Position.DEF);
@@ -139,7 +137,7 @@ public class GameService {
         return game;
     }
 
-    private Goal goalPossibility(Club homeClub, Club awayClub, int homeGoals, int awayGoals) {
+    public Goal goalPossibility(Club homeClub, Club awayClub, int homeGoals, int awayGoals) {
 
         AttackingClub controllingClub = calculateControllingClub(homeClub, awayClub);
 

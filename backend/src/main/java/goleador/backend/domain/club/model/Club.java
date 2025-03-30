@@ -50,6 +50,4 @@ public class Club {
 
     @Column(nullable = false)
     private BigDecimal finances;
-
-//    private List<Transfer> transfers; // TODO - add list of transfers
 }
