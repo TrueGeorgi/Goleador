@@ -67,19 +67,21 @@ public class UserService implements CommandLineRunner {
 
     private User initializeUser(RegisterRequest registerRequest, boolean isAdmin) {
 
-        UserRole role = UserRole.USER;
+        UserRole role = UserRole.user;
 
         if (isAdmin) {
-            role = UserRole.ADMIN;
+            role = UserRole.admin;
         }
 
         return User.builder()
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .role(role)
+                .isDeleted(false)
                 .build();
     }
 
+    @Transactional
     protected void createFirstUser() {
         RegisterRequest registerRequest = RegisterRequest.builder()
                 .username("Administrator")
@@ -101,6 +103,10 @@ public class UserService implements CommandLineRunner {
 
         User user = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
 
+        if (user.getIsDeleted()) {
+            throw new RuntimeException("User is deleted");
+        }
+
         String jwtToken = jwtService.generateToken(user);
 
         UserData userdata = UserData.builder()
@@ -119,15 +125,22 @@ public class UserService implements CommandLineRunner {
     }
 
     public User getUserByUsername(String username) {
-        return this.userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
+        User user = this.userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
+
+        if(user.getIsDeleted()) {
+            throw new RuntimeException("User is deleted");
+        }
+
+        return user;
     }
 
     public void editUser(String username, UserEdit userEdit) {
-        User user = userRepository.findByUsername(username).orElseThrow(); // TODO - handle error
+        User user = userRepository.findByUsername(username).orElseThrow();
         user.setFirstName(userEdit.getFirstName());
         user.setLastName(userEdit.getLastName());
         user.setEmail(userEdit.getEmail());
         user.setProfilePicture(userEdit.getProfilePicture());
+        user.setRole(userEdit.getRole());
         userRepository.save(user);
     }
 
@@ -145,6 +158,8 @@ public class UserService implements CommandLineRunner {
             throw new RuntimeException("User with this username not found");
         }
 
-
+        User user = byUsername.get();
+        user.setIsDeleted(true);
+        userRepository.save(user);
     }
 }

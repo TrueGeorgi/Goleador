@@ -18,6 +18,7 @@ export class EditProfileComponent {
   profileForm: FormGroup;
 
   username: string = '';
+  userRole: string = 'user';
 
   showSuccessMessage: boolean = false;
 
@@ -49,7 +50,8 @@ export class EditProfileComponent {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      const edittedUser: UserEdit = this.userMapper.toUserEdit(this.profileForm);
+      let edittedUser: UserEdit = this.userMapper.toUserEdit(this.profileForm);
+      edittedUser.role = this.userRole;
       console.log(1);
       console.log(edittedUser);
       
@@ -62,6 +64,7 @@ export class EditProfileComponent {
       next: (data) => {
         if(data) {
           this.username = data.username;
+          this.userRole = data.userRole;
 
           this.profileForm.patchValue({
             firstName: data.firstName,

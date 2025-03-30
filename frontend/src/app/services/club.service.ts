@@ -23,7 +23,7 @@ export class ClubService {
   }
 
   editClubData(clubId: string, clubdata: ClubEdit): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/${clubId}`, clubdata)
+    return this.http.put<void>(`${this.apiUrl}/${clubId}`, clubdata)
   }
 
   getEternalRanking(): Observable<RankedClub[]> {

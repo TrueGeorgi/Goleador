@@ -29,9 +29,9 @@ public class SecurityConfiguration {
 
           http
                   .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                  .csrf(AbstractHttpConfigurer::disable) // Disabling CSRF
+                  .csrf(AbstractHttpConfigurer::disable)
                   .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**").permitAll() // Adjust the matchers as needed
+                        .requestMatchers("/api/v1/auth/**").permitAll()
                         .anyRequest().authenticated()
                   )
                   .sessionManagement(session -> session

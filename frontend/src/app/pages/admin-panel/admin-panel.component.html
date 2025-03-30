@@ -24,6 +24,12 @@
         <label>Profile Pic</label>
         <input type="url" formControlName="profilePicture" placeholder="Enter url">
 
+        <label for="role">Role:</label>
+        <select formControlName="role" id="role">
+          <option value="user">USER</option>
+          <option value="admin">ADMIN</option>
+        </select>
+
         <button type="submit" class="edit-btn" [disabled]="profileForm.invalid">Edit</button>
       </form>
       <div class="buttons-container">

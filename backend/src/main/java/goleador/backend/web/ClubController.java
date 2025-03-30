@@ -28,8 +28,8 @@ public class ClubController {
         return ResponseEntity.ok(clubData);
     }
 
-    @PostMapping("/{clubId}")
-    public ResponseEntity<Void> updateUser(@PathVariable String clubId, @RequestBody ClubEdit clubEdit) {
+    @PutMapping("/{clubId}")
+    public ResponseEntity<Void> updateClub(@PathVariable String clubId, @RequestBody ClubEdit clubEdit) {
         UUID uuid = UUID.fromString(clubId);
         clubService.editClub(uuid, clubEdit);
         return ResponseEntity.noContent().build();

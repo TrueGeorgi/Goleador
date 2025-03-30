@@ -22,6 +22,12 @@ export class UserService {
     }
 
     updateUser(username: string, userData: UserEdit): Observable<void> {
-      return this.http.post<void>(`${this.apiUrl}/${username}`, userData);
+      return this.http.put<void>(`${this.apiUrl}/${username}`, userData);
+    }
+
+    deleteUser(username: string): Observable<void> {
+      console.log(username);
+      
+      return this.http.delete<void>(`${this.apiUrl}/${username}`);
     }
 }

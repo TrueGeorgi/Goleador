@@ -10,6 +10,7 @@ import goleador.backend.web.dto.UserEdit;
 import goleador.backend.web.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -21,9 +22,6 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
-
-    // TODO - get all users ordered by points desc
-    // TODO - edit user data
 
     @GetMapping("/{username}")
     public ResponseEntity<UserData> getUser(@PathVariable String username) {
@@ -38,15 +36,15 @@ public class UserController {
         return ResponseEntity.ok(user.getRole());
     }
 
-    @PostMapping("/{username}")
-    public ResponseEntity<UserData> updateUser(@PathVariable String username, @RequestBody UserEdit userEdit) {
+    @PutMapping("/{username}")
+    public ResponseEntity<Void> updateUser(@PathVariable String username, @RequestBody UserEdit userEdit) {
         userService.editUser(username, userEdit);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/username")
+    @DeleteMapping("/{username}")
     public ResponseEntity<Void> deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(null);
     }
 }

@@ -15,6 +15,7 @@ export class UserMapperService {
       lastName: form.get('lastName')?.value,
       email: form.get('email')?.value,
       profilePicture: form.get('profilePicture')?.value,
+      role: form.get('role')?.value
     };
   }
 }

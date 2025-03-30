@@ -98,10 +98,11 @@ export class ClubPageComponent implements OnInit {
     this.userService.getUserData(username).subscribe({
       next: (data) => {
         this.userData = data;
-        if(this.userData.userRole === "ADMIN") {
+        console.log('1 ', data);
+        
+        if(this.userData.userRole === "admin") {
           this.isAdmin = true;
         }
-        console.log(data);
         
       },
       error: (error) => {

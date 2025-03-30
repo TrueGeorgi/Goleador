@@ -54,7 +54,7 @@ public class ClubService {
 
         Club randomClub = clubs.get(random.nextInt(clubs.size()));
 
-        while (randomClub.getId() == homeClubId) {
+        while (randomClub.getId().equals(homeClubId)) {
             randomClub = clubs.get(random.nextInt(clubs.size()));
         }
         return randomClub;

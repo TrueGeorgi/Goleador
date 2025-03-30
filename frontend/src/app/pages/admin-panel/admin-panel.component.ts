@@ -33,7 +33,8 @@ export class AdminPanelComponent {
       firstName: [''],
       lastName: [''],
       email: ['', [Validators.email]],
-      profilePicture: ['']
+      profilePicture: [''],
+      role: ['', Validators.required]
     });
 
     this.userSearched = this.fb.group({
@@ -92,7 +93,8 @@ export class AdminPanelComponent {
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
-            profilePicture: data.profilePicture
+            profilePicture: data.profilePicture,
+            role: data.userRole
           });
           this.userFound = true;
         }
@@ -115,6 +117,21 @@ export class AdminPanelComponent {
   }
 
   onConfirm() {
-    
+    this.showConfirmDelete = false;
+    this.userService.deleteUser(this.userSearched.get('username')?.value).subscribe({
+      next: () => {
+        this.showSuccessMessage = true;
+
+        this.userFound = false;
+        this.username = '';
+        setTimeout(() => {
+          this.showSuccessMessage = false;
+        }, 500);
+      },
+      error: (error) => {
+        console.log("Something went wrong with deleting the user: ", error);
+        
+      }
+    })
   }
 }

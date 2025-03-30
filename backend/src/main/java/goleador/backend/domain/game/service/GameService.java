@@ -15,6 +15,7 @@ import goleador.backend.domain.player.service.PlayerService;
 import goleador.backend.web.dto.GameData;
 import goleador.backend.web.mapper.GameMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -271,4 +272,14 @@ public class GameService {
     public int getAllUserGamesCount(UUID teamUuid) {
        return getAllUserGames(teamUuid).size();
     }
+
+    @Scheduled(fixedRate = 1000 * 60 * 5)
+    private void runScheduledGames() {
+        List<Club> clubs = clubService.getAllClubsByPointsDesc();
+        clubs.forEach(club -> {
+            Club awayClub = clubService.getRandomClub(club.getId());
+            initializeGame(club, awayClub);
+        });
+    }
+
 }
