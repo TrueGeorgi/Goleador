@@ -1,5 +1,5 @@
 # Goleador  
-Football Manager is a web-based game where each player competes with their team to reach the top of the Eternal Table.  
+Football Manager web-based, game where each player competes with their team to reach the top of the Eternal Table.  
 
 ## How to Play  
 * Create a profile – you will automatically be assigned a team with 15 players.  
