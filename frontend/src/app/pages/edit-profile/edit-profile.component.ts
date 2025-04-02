@@ -43,8 +43,6 @@ export class EditProfileComponent {
       this.getUserData(username);
     } else {
       console.log('username did not work');
-      console.log(username);
-      
     }
   }
 
@@ -52,9 +50,6 @@ export class EditProfileComponent {
     if (this.profileForm.valid) {
       let edittedUser: UserEdit = this.userMapper.toUserEdit(this.profileForm);
       edittedUser.role = this.userRole;
-      console.log(1);
-      console.log(edittedUser);
-      
       this.editUserData(edittedUser);
     }
   }
@@ -81,7 +76,6 @@ export class EditProfileComponent {
   }
 
   editUserData(user: UserEdit) {
-    console.log(2);
     this.userService.updateUser(this.username, user).subscribe({
       next: () => {
         this.showSuccessMessage = true

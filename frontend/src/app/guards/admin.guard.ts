@@ -18,8 +18,6 @@ export class AdminGuard implements CanActivate {
     if(username) {
       this.userService.getUserRole(username).subscribe({
         next: (data) =>{
-          console.log(data);
-          
           userRole = data
         },
         error: (error) => {

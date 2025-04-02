@@ -56,15 +56,11 @@ export class AdminPanelComponent {
   onSubmitEditForm() {
     if (this.profileForm.valid) {
       const edittedUser: UserEdit = this.userMapper.toUserEdit(this.profileForm);
-      console.log(1);
-      console.log(edittedUser);
-      
       this.editUserData(edittedUser);
     }
   }
 
   editUserData(user: UserEdit) {
-    console.log(2);
     let username: string = this.userSearched.get('username')?.value;
     this.userService.updateUser(username, user).subscribe({
       next: () => {
@@ -86,8 +82,6 @@ export class AdminPanelComponent {
   getUserData(username: string) {
     this.userService.getUserData(username).subscribe({
       next: (data) => {
-        console.log(data);
-        
         if(data) {
           this.profileForm.patchValue({
             firstName: data.firstName,
@@ -98,8 +92,6 @@ export class AdminPanelComponent {
           });
           this.userFound = true;
         }
-        console.log(this.profileForm);
-        
       },
       error: (error) => {
         alert('There is no user with this username')

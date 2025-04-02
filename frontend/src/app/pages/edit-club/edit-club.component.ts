@@ -39,17 +39,12 @@ export class EditClubComponent {
       this.clubId = clubId;
     } else {
       console.log('username did not work');
-      console.log(clubId);
-      
     }
   }
 
   onSubmit() {
     if (this.clubForm.valid) {
       const edittedClub: ClubEdit = this.clubMapper.toClubEdit(this.clubForm);
-      console.log(1);
-      console.log(edittedClub);
-      
       this.editClub(edittedClub);
     }
   }
@@ -71,7 +66,6 @@ export class EditClubComponent {
   }
 
   editClub(club: ClubEdit) {
-    console.log(2);
     this.clubService.editClubData(this.clubId, club).subscribe({
       next: () => {
         this.showSuccessMessage = true

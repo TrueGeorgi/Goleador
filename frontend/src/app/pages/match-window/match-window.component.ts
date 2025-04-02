@@ -40,7 +40,6 @@ export class MatchWindowComponent {
         this.logService.getGameLogs(this.gameData.gameId).subscribe({
           next:(logsData) => {
             this.logsRaw = logsData
-            console.log(this.logsRaw);
             this.showDirectResult();
           },
           error: (error) => {
@@ -56,9 +55,6 @@ export class MatchWindowComponent {
   }
 
   showDirectResult() {
-    console.log(this.gameData);
-    console.log(this.logsRaw);
-    
     this.displayLogs = this.logsRaw;
     this.minuteOnBoard = 90;
     if(this.gameData) {

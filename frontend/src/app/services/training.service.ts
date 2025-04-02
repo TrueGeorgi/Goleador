@@ -17,8 +17,6 @@ export class TrainingService {
     }
 
     getTrainingCost(currentSkill: number): Observable<string> {
-      console.log('here');
-      
       return this.http.get<string>(`${this.apiUrl}/training-cost`, {
         params: {currentSkill: currentSkill}
       })

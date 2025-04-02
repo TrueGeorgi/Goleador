@@ -49,8 +49,6 @@ export class ManagerProfileComponent {
       this.getUserData(username);
     } else {
       console.log('username did not work');
-      console.log(username);
-      
     }
   }
 
@@ -58,8 +56,6 @@ export class ManagerProfileComponent {
     this.userService.getUserData(username).subscribe({
       next: (data) => {
         this.userData = data;
-        console.log(data);
-        
       },
       error: (error) => {
         console.error('Error fetching club data:', error);

@@ -43,7 +43,7 @@ constructor(
             this.clubService.setClubData(clubResponse);
           },
           error: (err) => {
-            console.log('FUUUUUCK ERROR', err);
+            console.log('Something went wrong with calling the club service: ', err);
           }
         });
 

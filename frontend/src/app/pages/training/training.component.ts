@@ -52,9 +52,7 @@ export class TrainingComponent {
   }
 
   onSelectionChange(event: any) {
-    console.log(this.selectedValue);
-    this.getTrainingCost();
-    
+    this.getTrainingCost(); 
   }
 
   getPlayersData(clubId: string) {
@@ -76,8 +74,6 @@ export class TrainingComponent {
     if(this.selectedValue) {
       this.trainingService.getTrainingCost(this.selectedValue.skill).subscribe({
         next: (data) => {
-          console.log(data);
-          
           this.trainingCost = Math.floor(Number(data));
         },
         error: (error) => {

@@ -13,13 +13,9 @@ export class AboutTheGameComponent {
 
   playGame() {
     let username: string | null = sessionStorage.getItem('username');
-    console.log(username);
-    
     if(username) {
       this.router.navigate(['match-window'])
     } else {
-      console.log();
-      
       this.router.navigate(['login'])
     }
   }

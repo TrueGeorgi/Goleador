@@ -30,8 +30,6 @@ export class PastResultsComponent {
     this.matchService.getAllGames(clubId).subscribe({
       next: (data) => {
         this.games = data;
-        console.log(data);
-        
       },
       error: (error) => {
         console.error('Error fetching club data:', error);

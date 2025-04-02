@@ -50,8 +50,6 @@ export class RegisterComponent {
   
     this.authService.register(userData).subscribe({
       next: async (authResponse) => {
-        console.log('Registration successful:', authResponse);
-        
         localStorage.setItem('authToken', authResponse.token);
         sessionStorage.setItem('clubId', authResponse.userData.clubId);
         sessionStorage.setItem('username', authResponse.userData.username);        
@@ -61,7 +59,7 @@ export class RegisterComponent {
             this.clubService.setClubData(clubResponse);
           },
           error: (err) => {
-            console.log('FUUUUUCK ERROR', err);
+            console.log('Something with wrong with the club service', err);
           }
         });
 
@@ -79,7 +77,7 @@ export class RegisterComponent {
         this.router.navigate(["club-page"]);
       },
       error: (err) => {
-        console.error('Something went terribly wrong ', err);
+        console.error('Something went wrong the auth service: ', err);
       }
     });
   }

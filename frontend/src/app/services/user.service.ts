@@ -26,8 +26,6 @@ export class UserService {
     }
 
     deleteUser(username: string): Observable<void> {
-      console.log(username);
-      
       return this.http.delete<void>(`${this.apiUrl}/${username}`);
     }
 }

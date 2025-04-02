@@ -66,8 +66,6 @@ export class ClubPageComponent implements OnInit {
       this.getUserData(username);
     } else {
       console.log('username did not work');
-      console.log(username);
-      
     }
   }
 
@@ -98,8 +96,6 @@ export class ClubPageComponent implements OnInit {
     this.userService.getUserData(username).subscribe({
       next: (data) => {
         this.userData = data;
-        console.log('1 ', data);
-        
         if(this.userData.userRole === "admin") {
           this.isAdmin = true;
         }
