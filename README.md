@@ -36,7 +36,6 @@ Football Manager web-based, game where each player competes with their team to r
    * **VS Code** (for frontend development)  
 3. Add your credentials to the application file in the backend project to connect your database.  
 4. **Start the backend:**  
-   * If using Maven: `mvn spring-boot:run`  
-   * If using an IDE: Run the main class containing `@SpringBootApplication`  
+   * Run the main class containing `@SpringBootApplication`  
 5. **Start the frontend:**  
    * Using VS Code, navigate to the frontend folder and run `ng serve'.
